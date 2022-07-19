@@ -133,6 +133,20 @@ footer ul::marker {
     }
 }
 
+@media (max-width: 768px) {
+    .testimonials-section .card{
+        margin-bottom: 6rem;
+    }
+
+    .testimonials-cards img {
+        height: 120px;
+        width: 120px;
+        object-fit: cover;
+        margin-top: -5rem;
+        border: 5px solid $primary;
+    }
+}
+
 @media (max-width: 729px) {
     .navbar-brand h5 {
         letter-spacing: 2px;
