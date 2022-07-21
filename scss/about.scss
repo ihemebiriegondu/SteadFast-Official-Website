@@ -89,11 +89,13 @@ header li:hover {
 
 .first-carousel {
     height: 40rem;
+    background-image: url(/images/index-image.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.first-carousel img {
-    height: 100%;
-    object-fit: cover;
+.first-carousel-div{
+    background-color: rgba($color: #000000, $alpha: 0.3);
 }
 
 .video {
@@ -113,30 +115,6 @@ header li:hover {
 
 .school-cards {
     background-color: rgba($primary, 0.85);
-}
-
-.testimonials-section .row {
-    padding-top: 9rem;
-}
-
-.testimonials-section .card {
-    height: 450px;
-    border-radius: 5px 5px 20px 20px;
-}
-
-.testimonials-cards img {
-    height: 180px;
-    width: 180px;
-    object-fit: cover;
-    margin-top: -7rem;
-    border: 7px solid $primary;
-}
-
-.line {
-    width: 6rem;
-    margin-top: -1rem;
-    background-color: $primary;
-    height: 4px;
 }
 
 footer img {
