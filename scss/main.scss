@@ -16,6 +16,25 @@ $btn-close-color: $primary;
 $btn-close-opacity: 1;
 $btn-close-focus-shadow: none;
 
+$carousel-control-color: white;
+$carousel-control-width: 15%;
+$carousel-control-opacity: 1;
+$carousel-control-hover-opacity: 0.8;
+$carousel-control-icon-width: 3rem;
+
+$accordion-icon-color: $primary;
+$accordion-icon-active-color: $primary;
+$accordion-icon-width: 0.8rem;
+$accordion-icon-transform: none;
+$accordion-button-active-bg: transparent;
+$accordion-button-active-color: $primary;
+
+$accordion-button-focus-border-color: none;
+$accordion-button-focus-box-shadow: none;
+
+$accordion-button-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-color}'><path fill-rule='evenodd' d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
+$accordion-button-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-active-color}'><path fill-rule='evenodd' d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
+
 
 
 html {
@@ -31,6 +50,22 @@ header {
     height: 51rem;
 }
 
+header li:hover {
+    background-color: rgb(252, 221, 221);
+}
+
+.navbar-light .navbar-nav .show>.nav-link,
+.navbar-light .navbar-nav .nav-link.active {
+    color: $primary;
+    font-weight: 700;
+}
+
+.navbar-nav .nav-link.active,
+.navbar-nav .show>.nav-link {
+    color: $primary;
+    font-weight: 700;
+}
+
 .navbar-brand img {
     width: 90px;
     height: 90px;
@@ -42,6 +77,14 @@ header {
 
 .nav-item ul {
     width: 15rem;
+}
+
+.accordion-button::after {
+    margin-left: 10px !important;
+}
+
+.accordion-button:not(.collapsed) {
+    box-shadow: none !important;
 }
 
 .first-carousel {
@@ -72,11 +115,11 @@ header {
     background-color: rgba($primary, 0.85);
 }
 
-.testimonials-section .row{
+.testimonials-section .row {
     padding-top: 9rem;
 }
 
-.testimonials-section .card{
+.testimonials-section .card {
     height: 450px;
     border-radius: 5px 5px 20px 20px;
 }
@@ -109,6 +152,19 @@ footer ul::marker {
     .navbar-brand h5 {
         letter-spacing: 5.3px;
     }
+
+    .testimonials-section .card {
+        height: 500px;
+        border-radius: 5px 5px 20px 20px;
+    }
+
+
+    .line {
+        width: 3rem;
+        margin-top: -1rem;
+        background-color: $primary;
+        height: 4px;
+    }
 }
 
 @media (max-width: 1129px) {
@@ -125,6 +181,14 @@ footer ul::marker {
     .navbar-brand h5 {
         letter-spacing: 4px;
     }
+
+    .testimonials-cards img {
+        height: 120px;
+        width: 120px;
+        object-fit: cover;
+        margin-top: -5rem;
+        border: 5px solid $primary;
+    }
 }
 
 @media (max-width: 800px) {
@@ -134,8 +198,13 @@ footer ul::marker {
 }
 
 @media (max-width: 768px) {
-    .testimonials-section .card{
+    .testimonials-section .card {
         margin-bottom: 6rem;
+    }
+
+    .testimonials-section .card {
+        height: 400px;
+        border-radius: 5px 5px 20px 20px;
     }
 
     .testimonials-cards img {
@@ -144,6 +213,10 @@ footer ul::marker {
         object-fit: cover;
         margin-top: -5rem;
         border: 5px solid $primary;
+    }
+
+    .carousel-item img {
+        height: 50%;
     }
 }
 
@@ -182,6 +255,14 @@ footer ul::marker {
     .names.align-items-center {
         align-items: start !important;
     }
+}
+
+@media (max-width: 300px) {
+    .testimonials-section .card {
+        height: 450px;
+        border-radius: 5px 5px 20px 20px;
+    }
+
 }
 
 @media (min-height: 765px) {}
