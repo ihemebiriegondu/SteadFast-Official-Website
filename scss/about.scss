@@ -16,12 +16,6 @@ $btn-close-color: $primary;
 $btn-close-opacity: 1;
 $btn-close-focus-shadow: none;
 
-$carousel-control-color: white;
-$carousel-control-width: 15%;
-$carousel-control-opacity: 1;
-$carousel-control-hover-opacity: 0.8;
-$carousel-control-icon-width: 3rem;
-
 $accordion-icon-color: $primary;
 $accordion-icon-active-color: $primary;
 $accordion-icon-width: 0.8rem;
@@ -89,9 +83,6 @@ header li:hover {
 
 .first-carousel {
     height: 40rem;
-    background-image: url(/images/index-image.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .first-carousel-div{
@@ -107,11 +98,27 @@ header li:hover {
     background-color: rgba($primary, 0.85);
 }
 
+.testimonials-cards{
+    width: 350px;
+}
+
 .testimonials-cards img{
     width: 5rem;
     height: 5rem;
     object-fit: cover;
     border-radius: 50%;
+}
+
+.scrolling-testimonials{
+    overflow-x: auto;
+    ::-webkit-scrollbar{
+        display: none;
+        width: none;
+    }
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
 }
 
 footer img {
