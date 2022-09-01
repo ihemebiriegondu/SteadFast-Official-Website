@@ -43,6 +43,7 @@ $accordion-button-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/20
 $accordion-button-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-active-color}'><path fill-rule='evenodd' d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
 
 
+
 html {
     overflow-x: hidden;
 }
@@ -115,7 +116,7 @@ header li:hover {
 .first-carousel {
     height: 27rem;
     position: sticky !important;
-    background-image: url(../images/School-images/0_IMG_20180427_095837\ \(1\).jpg);
+    background-image: url(../images/index-image.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -125,61 +126,10 @@ header li:hover {
     background-color: rgba($color: #807e7e, $alpha: 0.5);
 }
 
-.about-us-story,
-.vision {
-    height: fit-content;
-}
-
-.about-us-story-row,
-.vision-row {
-    height: 100%;
-}
-
-.about-us-story-img,
-.vision-img {
-    width: 100%;
-}
-
-.about-us-story-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.vision-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.values img {
-    width: 8rem;
+.news-card img{
+    width: 12rem;
     height: 8rem;
     object-fit: cover;
-}
-
-.testimonials-cards {
-    width: 350px;
-}
-
-.testimonials-cards img {
-    width: 5rem;
-    height: 5rem;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-.scrolling-testimonials {
-    overflow-x: auto;
-
-    -ms-overflow-style: none !important;
-    scrollbar-width: none !important;
-    overflow: -moz-scrollbars-none !important;
-    flex-wrap: nowrap;
-}
-
-.scrolling-testimonials::-webkit-scrollbar {
-    display: none !important;
 }
 
 footer img {
@@ -195,6 +145,12 @@ footer ul::marker {
     .navbar-brand h5 {
         letter-spacing: 5.3px;
     }
+
+    .testimonials-section .card {
+        height: 500px;
+        border-radius: 5px 5px 20px 20px;
+    }
+
 
     .line {
         width: 3rem;
@@ -218,6 +174,14 @@ footer ul::marker {
     .navbar-brand h5 {
         letter-spacing: 4px;
     }
+
+    .testimonials-cards img {
+        height: 120px;
+        width: 120px;
+        object-fit: cover;
+        margin-top: -5rem;
+        border: 5px solid $primary;
+    }
 }
 
 @media (max-width: 800px) {
@@ -227,28 +191,7 @@ footer ul::marker {
 }
 
 @media (max-width: 768px) {
-
-    .about-us-story,
-    .vision {
-        height: 40rem;
-    }
-
-    .about-us-story-row,
-    .vision-row {
-        height: 100%;
-    }
-
-    .about-us-story-img,
-    .vision-img {
-        height: 50%;
-        width: 100%;
-    }
-
-    .about-us-story-row article,
-    .vision-row article {
-        height: 50%;
-        width: 100%;
-    }
+    
 }
 
 @media (max-width: 729px) {
@@ -258,8 +201,10 @@ footer ul::marker {
 }
 
 @media (max-width: 576px) {
-    .first-carousel {
-        height: 28.5rem;
+    .news-card img{
+        width: 100%;
+        height: 10%;
+        object-fit: cover;
     }
 }
 
@@ -292,20 +237,10 @@ footer ul::marker {
     .names.align-items-center {
         align-items: start !important;
     }
-
-    .about-us-story,
-    .vision {
-        height: 50rem;
-    }
 }
 
-@media (max-width: 300px) {}
 
-@media (min-height: 765px) {}
 
-@media (min-height: 1000px) {}
-
-@media (min-height: 1032px) {}
 
 
 

@@ -2,6 +2,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap');
 
 
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 769px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
 $primary: rgb(98, 23, 23);
 $secondary: rgb(250, 193, 193);
 $light: #ffecec;
@@ -136,6 +145,77 @@ header li:hover {
     object-fit: cover;
 }
 
+.main-teachers-section {
+
+}
+
+.teachers-div {
+
+}
+
+.teachers-div .teachers-col {
+    height: 400px !important;
+    transition: all 0.5s ease-in-out !important;
+    overflow: hidden !important;
+}
+
+.teachers-col .white-bg {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden !important;
+}
+
+.teachers-col img {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover;
+    transition: all 0.5s ease-in-out;
+}
+
+.teachers-col:hover img {
+    transform: scale(1.1);
+    transition: all 0.5s ease-in-out;
+    filter: blur(2px);
+}
+
+.teachers-col .teachers-names {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: all 0.5s ease-in-out;
+}
+
+.teachers-col:hover .teachers-names {
+    height: 100%;
+    transition: all 0.5s ease-in-out;
+}
+
+.teachers-col .teachers-names div {
+    position: absolute;
+    top: 50%;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    transition: all 0.5s ease-in-out;
+
+    h5 {
+        visibility: hidden;
+    }
+}
+
+.teachers-col:hover .teachers-names div{
+    visibility: visible;
+    transition: all 0.5s ease-in-out;
+
+    h5 {
+        visibility: visible;
+    }
+}
+
 footer img {
     width: 11rem;
     height: 11rem;
@@ -151,8 +231,8 @@ footer ul::marker {
     }
 
     .administration img {
-        height: 70%;
-        width: 70%;
+        height: 300px;
+        width: 300px;
     }
 }
 
@@ -170,15 +250,42 @@ footer ul::marker {
     .navbar-brand h5 {
         letter-spacing: 4px;
     }
+
+    .administration img {
+        height: 240px;
+        width: 240px;
+    }
 }
 
 @media (max-width: 800px) {
     .navbar-brand h5 {
         letter-spacing: 3px;
     }
+
+    .administration img {
+        height: 200px;
+        width: 200px;
+    }
 }
 
 @media (max-width: 768px) {
+    .administration .admin-col:nth-of-type(1) {
+        flex-grow: 1;
+    }
+
+    .administration .admin-col:nth-of-type(2) {
+        flex-grow: 1;
+    }
+    
+    .administration .admin-col:nth-of-type(3) {
+        flex-grow: 8;      
+        margin-top: -2rem !important;
+    }
+
+    .administration img {
+        height: 250px;
+        width: 250px;
+    }
 }
 
 @media (max-width: 729px) {
@@ -190,6 +297,10 @@ footer ul::marker {
 @media (max-width: 576px) {
     .first-carousel {
         height: 28.5rem;
+    }
+
+    .administration .admin-col:nth-of-type(2) {
+        margin-top: -2rem !important;
     }
 }
 

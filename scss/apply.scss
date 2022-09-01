@@ -1,6 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Italianno&family=Vesper+Libre:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap');
+
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 769px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
 $primary: rgb(98, 23, 23);
 $secondary: rgb(250, 193, 193);
-$light: rgb(255, 236, 236);
+$light: #ffecec;
 
 $navbar-light-color: $primary;
 $navbar-light-hover-color: $primary;
@@ -16,24 +29,18 @@ $btn-close-color: $primary;
 $btn-close-opacity: 1;
 $btn-close-focus-shadow: none;
 
-$input-focus-box-shadow: none;
-
-$carousel-control-color: rgba(white, 0.9);
-$carousel-control-width: 10%;
-$carousel-control-opacity: 0.9;
-$carousel-control-hover-opacity: 1;
-$carousel-control-icon-width: 3rem;
-
 $accordion-icon-color: $primary;
 $accordion-icon-active-color: $primary;
+$accordion-icon-width: 0.8rem;
+$accordion-icon-transform: none;
 $accordion-button-active-bg: transparent;
 $accordion-button-active-color: $primary;
 
 $accordion-button-focus-border-color: none;
 $accordion-button-focus-box-shadow: none;
 
-$accordion-button-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-color}'><path fill-rule='evenodd' d='M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z'/></svg>");
-$accordion-button-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-active-color}'><path fill-rule='evenodd' d='M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z'/></svg>");
+$accordion-button-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-color}'><path fill-rule='evenodd' d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
+$accordion-button-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-active-color}'><path fill-rule='evenodd' d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
 
 
 
@@ -43,11 +50,30 @@ html {
 
 body {
     overflow-x: hidden;
-    background-color: rgb(253, 248, 248);
+    background-color: rgb(253, 240, 240) !important;
+    font-family: 'Vesper Libre', serif !important;
+}
+
+.cursive {
+    font-family: 'Italianno', cursive !important;
+}
+
+.semi-cursive {
+    font-family: 'Charm', cursive !important;
+}
+
+.cursive.big-heading {
+    font-size: 7rem !important;
+    font-size: calc(4rem + 2.9vw) !important;
+}
+
+.btn {
+    box-shadow: none !important;
+    outline: none !important;
 }
 
 header {
-    height: 40rem;
+    height: 38rem;
 }
 
 header li:hover {
@@ -79,23 +105,29 @@ header li:hover {
     width: 15rem;
 }
 
+.accordion-button::after {
+    margin-left: 10px !important;
+}
+
 .accordion-button:not(.collapsed) {
     box-shadow: none !important;
 }
 
 .first-carousel {
-    height: 30rem;
+    height: 27rem;
+    position: sticky !important;
+    background-image: url(../images/index-image.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
-.first-carousel img {
-    height: 100%;
-    object-fit: cover;
+.first-carousel-div {
+    background-color: rgba($color: #807e7e, $alpha: 0.5);
 }
 
-.news-card img{
-    width: 12rem;
-    height: 8rem;
-    object-fit: cover;
+li {
+    font-size: 17px;
 }
 
 footer img {
@@ -110,19 +142,6 @@ footer ul::marker {
 @media (max-width: 1200px) {
     .navbar-brand h5 {
         letter-spacing: 5.3px;
-    }
-
-    .testimonials-section .card {
-        height: 500px;
-        border-radius: 5px 5px 20px 20px;
-    }
-
-
-    .line {
-        width: 3rem;
-        margin-top: -1rem;
-        background-color: $primary;
-        height: 4px;
     }
 }
 
@@ -139,14 +158,6 @@ footer ul::marker {
 
     .navbar-brand h5 {
         letter-spacing: 4px;
-    }
-
-    .testimonials-cards img {
-        height: 120px;
-        width: 120px;
-        object-fit: cover;
-        margin-top: -5rem;
-        border: 5px solid $primary;
     }
 }
 
