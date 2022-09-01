@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Italianno&family=Vesper+Libre:wght@400;500;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap');
 
+
 $primary: rgb(98, 23, 23);
 $secondary: rgb(250, 193, 193);
-$light: rgb(255, 236, 236);
+$light: #ffecec;
 
 $navbar-light-color: $primary;
 $navbar-light-hover-color: $primary;
@@ -19,12 +20,6 @@ $btn-close-color: $primary;
 $btn-close-opacity: 1;
 $btn-close-focus-shadow: none;
 
-$carousel-control-color: rgba(white, 0.9);
-$carousel-control-width: 10%;
-$carousel-control-opacity: 0.9;
-$carousel-control-hover-opacity: 1;
-$carousel-control-icon-width: 3rem;
-
 $accordion-icon-color: $primary;
 $accordion-icon-active-color: $primary;
 $accordion-icon-width: 0.8rem;
@@ -39,7 +34,6 @@ $accordion-button-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/20
 $accordion-button-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-active-color}'><path fill-rule='evenodd' d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
 
 
-
 html {
     overflow-x: hidden;
 }
@@ -48,7 +42,6 @@ body {
     overflow-x: hidden;
     background-color: rgb(253, 240, 240) !important;
     font-family: 'Vesper Libre', serif !important;
-    position: relative;
 }
 
 .cursive {
@@ -60,7 +53,8 @@ body {
 }
 
 .cursive.big-heading {
-    font-size: 9rem !important;
+    font-size: 7rem !important;
+    font-size: calc(4rem + 2.9vw) !important;
 }
 
 .btn {
@@ -69,7 +63,7 @@ body {
 }
 
 header {
-    height: 51rem;
+    height: 38rem;
 }
 
 header li:hover {
@@ -110,128 +104,36 @@ header li:hover {
 }
 
 .first-carousel {
-    height: 40rem;
+    height: 27rem;
+    position: sticky !important;
+    background-image: url(../images/index-image.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
-.first-carousel img {
-    height: 100%;
+.first-carousel-div {
+    background-color: rgba($color: #807e7e, $alpha: 0.5);
+}
+
+.admin {
+    padding-bottom: 11rem !important;
+}
+
+.administration {
+    margin-top: -11rem;
+    padding-bottom: 5rem;
+}
+
+.administration .admin-col {
+    height: 500px !important;
+}
+
+.administration img {
+    height: 350px;
+    width: 350px;
+    border-radius: 50%;
     object-fit: cover;
-}
-
-.video {
-    height: 20rem;
-    width: 100%;
-}
-
-.video video {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-
-.event-card {
-    overflow: hidden;
-}
-
-.card-img-div {
-    height: 302px;
-    transition: all 0.5s ease-in-out;
-    width: 100%;
-    overflow: hidden;
-}
-
-.card-img-div img {
-    height: 100%;
-    width: 100%;
-    transition: all 0.5s ease-in-out;
-}
-
-.card:hover .card-img-div img {
-    transform: scale(1.05);
-    cursor: pointer;
-    transition: all 0.5s ease-in-out;
-}
-
-.main-school-cards {
-    height: 300px; 
-    background: url(../images/miami.jpg); 
-    background-repeat: no-repeat; 
-    background-position: cover;
-    
-}
-
-.school-cards {
-    background-color: rgba($primary, 0.7);
-    height: 100%;
-    width: 100%;
-    padding: 2rem 0;
-}
-
-.school-cards .card-body {
-    transition: all 0.5s ease-in-out;
-    border: 3px solid none;
-    width: 95%;
-}
-
-.school-cards .card-title {
-    transition: all 0.5s ease-in-out;
-    text-align: center;
-}
-
-.school-cards .card-text-div {
-    transition: all 0.5s ease-in-out;
-    height: 0ch;
-}
-
-.school-cards .card-text-div .card-text {
-    transition: all 0.5s ease-in-out;
-    text-align: center;
-    color: transparent;
-    height: 0%;
-}
-
-.school-cards:hover .card-body {
-    transition: all 0.5s ease-in-out;
-    border: 3px solid white;
-}
-
-.school-cards:hover .card-title {
-    transition: all 0.5s ease-in-out;
-}
-
-.school-cards:hover .card-text-div {
-    transition: all 0.5s ease-in-out;
-    height: 100%;
-}
-
-.school-cards:hover .card-text-div .card-text {
-    transition: all 0.5s ease-in-out;
-    color: white;
-    height: 100%;
-}
-
-.testimonials-section .row {
-    padding-top: 9rem;
-}
-
-.testimonials-section .card {
-    height: 450px;
-    border-radius: 5px 5px 20px 20px;
-}
-
-.testimonials-cards img {
-    height: 180px;
-    width: 180px;
-    object-fit: cover;
-    margin-top: -7rem;
-    border: 7px solid $primary;
-}
-
-.line {
-    width: 6rem;
-    margin-top: -1rem;
-    background-color: $secondary;
-    height: 4px;
 }
 
 footer img {
@@ -248,17 +150,9 @@ footer ul::marker {
         letter-spacing: 5.3px;
     }
 
-    .testimonials-section .card {
-        height: 500px;
-        border-radius: 5px 5px 20px 20px;
-    }
-
-
-    .line {
-        width: 3rem;
-        margin-top: -1rem;
-        background-color: $primary;
-        height: 4px;
+    .administration img {
+        height: 70%;
+        width: 70%;
     }
 }
 
@@ -276,14 +170,6 @@ footer ul::marker {
     .navbar-brand h5 {
         letter-spacing: 4px;
     }
-
-    .testimonials-cards img {
-        height: 120px;
-        width: 120px;
-        object-fit: cover;
-        margin-top: -5rem;
-        border: 5px solid $primary;
-    }
 }
 
 @media (max-width: 800px) {
@@ -293,31 +179,17 @@ footer ul::marker {
 }
 
 @media (max-width: 768px) {
-    .testimonials-section .card {
-        margin-bottom: 6rem;
-    }
-
-    .testimonials-section .card {
-        height: 400px;
-        border-radius: 5px 5px 20px 20px;
-    }
-
-    .testimonials-cards img {
-        height: 120px;
-        width: 120px;
-        object-fit: cover;
-        margin-top: -5rem;
-        border: 5px solid $primary;
-    }
-
-    .carousel-item img {
-        height: 50%;
-    }
 }
 
 @media (max-width: 729px) {
     .navbar-brand h5 {
         letter-spacing: 2px;
+    }
+}
+
+@media (max-width: 576px) {
+    .first-carousel {
+        height: 28.5rem;
     }
 }
 
@@ -352,21 +224,13 @@ footer ul::marker {
     }
 }
 
-@media (max-width: 300px) {
-    .testimonials-section .card {
-        height: 450px;
-        border-radius: 5px 5px 20px 20px;
-    }
-
-}
+@media (max-width: 300px) {}
 
 @media (min-height: 765px) {}
 
 @media (min-height: 1000px) {}
 
 @media (min-height: 1032px) {}
-
-
 
 
 
