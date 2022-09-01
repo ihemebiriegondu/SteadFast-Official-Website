@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Italianno&family=Vesper+Libre:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap');
+
 $primary: rgb(98, 23, 23);
 $secondary: rgb(250, 193, 193);
 $light: rgb(255, 236, 236);
@@ -43,7 +46,26 @@ html {
 
 body {
     overflow-x: hidden;
-    background-color: rgb(253, 248, 248);
+    background-color: rgb(253, 240, 240) !important;
+    font-family: 'Vesper Libre', serif !important;
+    position: relative;
+}
+
+.cursive {
+    font-family: 'Italianno', cursive !important;
+}
+
+.semi-cursive {
+    font-family: 'Charm', cursive !important;
+}
+
+.cursive.big-heading {
+    font-size: 9rem !important;
+}
+
+.btn {
+    box-shadow: none !important;
+    outline: none !important;
 }
 
 header {
@@ -107,12 +129,85 @@ header li:hover {
     object-fit: cover;
 }
 
-.card img {
+.event-card {
+    overflow: hidden;
+}
+
+.card-img-div {
     height: 302px;
+    transition: all 0.5s ease-in-out;
+    width: 100%;
+    overflow: hidden;
+}
+
+.card-img-div img {
+    height: 100%;
+    width: 100%;
+    transition: all 0.5s ease-in-out;
+}
+
+.card:hover .card-img-div img {
+    transform: scale(1.05);
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.main-school-cards {
+    height: 300px; 
+    background: url(../images/miami.jpg); 
+    background-repeat: no-repeat; 
+    background-position: cover;
+    
 }
 
 .school-cards {
     background-color: rgba($primary, 0.85);
+    height: 100%;
+    width: 100%;
+    padding: 2rem 0;
+}
+
+.school-cards .card-body {
+    transition: all 0.5s ease-in-out;
+    border: 3px solid none;
+    width: 95%;
+}
+
+.school-cards .card-title {
+    transition: all 0.5s ease-in-out;
+    text-align: center;
+}
+
+.school-cards .card-text-div {
+    transition: all 0.5s ease-in-out;
+    height: 0ch;
+}
+
+.school-cards .card-text-div .card-text {
+    transition: all 0.5s ease-in-out;
+    text-align: center;
+    color: transparent;
+    height: 0%;
+}
+
+.school-cards:hover .card-body {
+    transition: all 0.5s ease-in-out;
+    border: 3px solid white;
+}
+
+.school-cards:hover .card-title {
+    transition: all 0.5s ease-in-out;
+}
+
+.school-cards:hover .card-text-div {
+    transition: all 0.5s ease-in-out;
+    height: 100%;
+}
+
+.school-cards:hover .card-text-div .card-text {
+    transition: all 0.5s ease-in-out;
+    color: white;
+    height: 100%;
 }
 
 .testimonials-section .row {
@@ -135,7 +230,7 @@ header li:hover {
 .line {
     width: 6rem;
     margin-top: -1rem;
-    background-color: $primary;
+    background-color: $secondary;
     height: 4px;
 }
 

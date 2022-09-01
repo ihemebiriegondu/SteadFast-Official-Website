@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Italianno&family=Vesper+Libre:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap');
+
+
 $primary: rgb(98, 23, 23);
 $secondary: rgb(250, 193, 193);
-$light: rgb(255, 236, 236);
+$light: #ffecec;
 
 $navbar-light-color: $primary;
 $navbar-light-hover-color: $primary;
@@ -30,18 +34,36 @@ $accordion-button-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/20
 $accordion-button-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-active-color}'><path fill-rule='evenodd' d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
 
 
-
 html {
     overflow-x: hidden;
 }
 
 body {
     overflow-x: hidden;
-    background-color: rgb(253, 248, 248);
+    background-color: rgb(253, 240, 240) !important;
+    font-family: 'Vesper Libre', serif !important;
+}
+
+.cursive {
+    font-family: 'Italianno', cursive !important;
+}
+
+.semi-cursive {
+    font-family: 'Charm', cursive !important;
+}
+
+.cursive.big-heading {
+    font-size: 7rem !important;
+    font-size: calc(4rem + 2.9vw) !important;
+}
+
+.btn {
+    box-shadow: none !important;
+    outline: none !important;
 }
 
 header {
-    height: 51rem;
+    height: 38rem;
 }
 
 header li:hover {
@@ -82,43 +104,73 @@ header li:hover {
 }
 
 .first-carousel {
-    height: 40rem;
+    height: 27rem;
+    position: sticky !important;
+    background-image: url(../images/index-image.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
-.first-carousel-div{
+.first-carousel-div {
     background-color: rgba($color: #807e7e, $alpha: 0.5);
 }
 
+.about-us-story,
+.vision {
+    height: fit-content;
+}
+
+.about-us-story-row,
+.vision-row {
+    height: 100%;
+}
+
+.about-us-story-img,
+.vision-img {
+    width: 100%;
+}
+
+.about-us-story-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.vision-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .values img {
-    width: 7rem;
-    object-fit: contain;
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
 }
 
-.school-cards {
-    background-color: rgba($primary, 0.85);
-}
-
-.testimonials-cards{
+.testimonials-cards {
     width: 350px;
 }
 
-.testimonials-cards img{
+.testimonials-cards img {
     width: 5rem;
     height: 5rem;
     object-fit: cover;
     border-radius: 50%;
 }
 
-.scrolling-testimonials{
+.scrolling-testimonials {
     overflow-x: auto;
-    ::-webkit-scrollbar{
-        display: none;
-        width: none;
-    }
-    overflow: -moz-scrollbars-none;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+    overflow: -moz-scrollbars-none !important;
     flex-wrap: nowrap;
+}
+
+.scrolling-testimonials::-webkit-scrollbar {
+    display: none !important;
 }
 
 footer img {
@@ -166,12 +218,39 @@ footer ul::marker {
 }
 
 @media (max-width: 768px) {
-    
+
+    .about-us-story,
+    .vision {
+        height: 40rem;
+    }
+
+    .about-us-story-row,
+    .vision-row {
+        height: 100%;
+    }
+
+    .about-us-story-img,
+    .vision-img {
+        height: 50%;
+        width: 100%;
+    }
+
+    .about-us-story-row article,
+    .vision-row article {
+        height: 50%;
+        width: 100%;
+    }
 }
 
 @media (max-width: 729px) {
     .navbar-brand h5 {
         letter-spacing: 2px;
+    }
+}
+
+@media (max-width: 576px) {
+    .first-carousel {
+        height: 28.5rem;
     }
 }
 
@@ -204,11 +283,14 @@ footer ul::marker {
     .names.align-items-center {
         align-items: start !important;
     }
+
+    .about-us-story,
+    .vision {
+        height: 50rem;
+    }
 }
 
-@media (max-width: 300px) {
-   
-}
+@media (max-width: 300px) {}
 
 @media (min-height: 765px) {}
 
