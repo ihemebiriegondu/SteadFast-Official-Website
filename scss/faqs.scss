@@ -3,17 +3,19 @@
 
 
 $grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 769px,
-  lg: 992px,
-  xl: 1200px,
-  xxl: 1400px
+    xs: 0,
+    sm: 576px,
+    md: 769px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px
 );
 
 $primary: rgb(98, 23, 23);
 $secondary: rgb(250, 193, 193);
 $light: #ffecec;
+
+$body-bg: rgb(253, 240, 240);
 
 $navbar-light-color: $primary;
 $navbar-light-hover-color: $primary;
@@ -29,18 +31,18 @@ $btn-close-color: $primary;
 $btn-close-opacity: 1;
 $btn-close-focus-shadow: none;
 
-$accordion-icon-color: $primary;
-$accordion-icon-active-color: $primary;
-$accordion-icon-width: 0.8rem;
-$accordion-icon-transform: none;
+$accordion-bg: $body-bg;
+$accordion-icon-color: $body-bg;
+$accordion-icon-active-color: $body-bg;
+$accordion-icon-width: 1.4rem;
 $accordion-button-active-bg: transparent;
 $accordion-button-active-color: $primary;
 
 $accordion-button-focus-border-color: none;
 $accordion-button-focus-box-shadow: none;
 
-$accordion-button-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-color}'><path fill-rule='evenodd' d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
-$accordion-button-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-active-color}'><path fill-rule='evenodd' d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
+$accordion-button-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-color}'><path fill-rule='evenodd' d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg>");
+$accordion-button-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-active-color}'><path fill-rule='evenodd' d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/></svg>");
 
 
 
@@ -105,19 +107,13 @@ header li:hover {
     width: 15rem;
 }
 
-.accordion-button::after {
-    margin-left: 10px !important;
-}
-
 .accordion-button:not(.collapsed) {
     box-shadow: none !important;
 }
 
 .first-carousel {
     height: 27rem;
-    position: sticky !important;
-    background-image: url(../images/index-image.jpg);
-    background-repeat: no-repeat;
+    background: url('../images/index-image.jpg') center center no-repeat;
     background-size: cover;
     background-attachment: fixed;
 }
@@ -126,7 +122,15 @@ header li:hover {
     background-color: rgba($color: #807e7e, $alpha: 0.5);
 }
 
-.news-card img{
+.accordion{
+    font-size: 17px !important;
+}
+
+.accordion h2 button {
+    font-size: 18px !important;
+}
+
+.news-card img {
     width: 12rem;
     height: 8rem;
     object-fit: cover;
@@ -190,9 +194,7 @@ footer ul::marker {
     }
 }
 
-@media (max-width: 768px) {
-    
-}
+@media (max-width: 768px) {}
 
 @media (max-width: 729px) {
     .navbar-brand h5 {
@@ -201,7 +203,7 @@ footer ul::marker {
 }
 
 @media (max-width: 576px) {
-    .news-card img{
+    .news-card img {
         width: 100%;
         height: 10%;
         object-fit: cover;

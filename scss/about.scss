@@ -114,9 +114,7 @@ header li:hover {
 
 .first-carousel {
     height: 27rem;
-    position: sticky !important;
-    background-image: url(../images/School-images/0_IMG_20180427_095837\ \(1\).jpg);
-    background-repeat: no-repeat;
+    background: url('../images/School-images/0_IMG_20180427_095837\ \(1\).jpg') center center no-repeat;
     background-size: cover;
     background-attachment: fixed;
 }
