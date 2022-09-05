@@ -1,3 +1,4 @@
+// scrolling testimonials
 const moveTestimonials = (direction) => {
     const scrollingTestimonials = document.querySelector(".scrolling-testimonials");
     /*const cards = document.querySelector(".testimonials-cards");
@@ -18,4 +19,41 @@ const moveTestimonials = (direction) => {
             scrollingTestimonials.style.scrollBehavior = "smooth"
         }
     }, 30);
+}
+
+
+
+const backToTop = document.querySelector(".back-to-top-button");
+
+window.addEventListener("scroll", () => {
+    // display back to top button
+    if (window.pageYOffset > 100) {
+        backToTop.classList.add("active");
+    } else {
+        backToTop.classList.remove("active");
+    }
+
+
+    //show section with transition
+
+    var reveals = document.querySelectorAll(".reveal");
+
+    for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = reveals[i].getBoundingClientRect().top;
+        var elementVisible = 150;
+
+        if (elementTop < windowHeight - elementVisible) {
+            reveals[i].classList.add("active");
+        } else {
+            reveals[i].classList.remove("active");
+        }
+    }
+})
+
+// back to top button function
+function topFunction() {
+    document.body.scrollIntoView({
+        behavior: "smooth",
+    });
 }

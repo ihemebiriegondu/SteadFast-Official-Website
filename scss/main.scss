@@ -2,12 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap');
 
 $grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 769px,
-  lg: 992px,
-  xl: 1200px,
-  xxl: 1400px
+    xs: 0,
+    sm: 576px,
+    md: 769px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px
 );
 
 $primary: rgb(98, 23, 23);
@@ -77,6 +77,23 @@ body {
     outline: none !important;
 }
 
+.back-to-top-button {
+    outline: none !important;
+    border: none !important;
+    position: fixed;
+    bottom: 1rem;
+    right: 2rem;
+    z-index: 5000;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.back-to-top-button.active {
+    bottom: 3rem;
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
+}
+
 header {
     height: 51rem;
 }
@@ -127,6 +144,18 @@ header li:hover {
     object-fit: cover;
 }
 
+.reveal {
+    position: relative;
+    transform: translateY(150px);
+    opacity: 0;
+    transition: 1s all ease;
+}
+
+.reveal.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
 .video {
     height: 20rem;
     width: 100%;
@@ -162,11 +191,11 @@ header li:hover {
 }
 
 .main-school-cards {
-    height: 300px; 
-    background: url(../images/miami.jpg); 
-    background-repeat: no-repeat; 
+    height: 300px;
+    background: url(../images/miami.jpg);
+    background-repeat: no-repeat;
     background-position: cover;
-    
+
 }
 
 .school-cards {

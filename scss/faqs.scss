@@ -74,6 +74,23 @@ body {
     outline: none !important;
 }
 
+.back-to-top-button {
+    outline: none !important;
+    border: none !important;
+    position: fixed;
+    bottom: 1rem;
+    right: 2rem;
+    z-index: 5000;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.back-to-top-button.active {
+    bottom: 3rem;
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
+}
+
 header {
     height: 38rem;
 }

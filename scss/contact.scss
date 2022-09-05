@@ -72,6 +72,23 @@ body {
     outline: none !important;
 }
 
+.back-to-top-button {
+    outline: none !important;
+    border: none !important;
+    position: fixed;
+    bottom: 1rem;
+    right: 2rem;
+    z-index: 5000;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.back-to-top-button.active {
+    bottom: 3rem;
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
+}
+
 header {
     height: 38rem;
 }
@@ -124,7 +141,7 @@ header li:hover {
     background-color: rgba($color: #807e7e, $alpha: 0.5);
 }
 
-p {
+main p {
     font-size: 18px !important;
 }
 
@@ -132,11 +149,11 @@ p {
     font-size: 7rem !important;
 }
 
-label {
+main label {
     font-size: 17px !important;
 }
 
-input, textarea {
+main input, main textarea {
     box-shadow: none !important;
     border: 3px solid $primary !important;
     resize: none !important;
