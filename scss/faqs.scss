@@ -54,6 +54,12 @@ body {
     overflow-x: hidden;
     background-color: rgb(253, 240, 240) !important;
     font-family: 'Vesper Libre', serif !important;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }
 
 .cursive {
@@ -145,6 +151,18 @@ header li:hover {
 
 .accordion h2 button {
     font-size: 18px !important;
+}
+
+.reveal {
+    position: relative;
+    transform: translateY(150px);
+    opacity: 0;
+    transition: 1s all ease;
+}
+
+.reveal.active {
+    transform: translateY(0);
+    opacity: 1;
 }
 
 .news-card img {

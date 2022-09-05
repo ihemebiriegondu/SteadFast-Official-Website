@@ -60,6 +60,12 @@ body {
     overflow-x: hidden;
     background-color: rgb(253, 240, 240) !important;
     font-family: 'Vesper Libre', serif !important;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }
 
 .cursive {
@@ -147,6 +153,18 @@ header li:hover {
 
 .first-carousel-div {
     background-color: rgba($color: #807e7e, $alpha: 0.5);
+}
+
+.reveal {
+    position: relative;
+    transform: translateY(150px);
+    opacity: 0;
+    transition: 1s all ease;
+}
+
+.reveal.active {
+    transform: translateY(0);
+    opacity: 1;
 }
 
 .news-card img{

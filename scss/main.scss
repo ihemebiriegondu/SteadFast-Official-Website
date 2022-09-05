@@ -57,7 +57,12 @@ body {
     overflow-x: hidden;
     background-color: rgb(253, 240, 240) !important;
     font-family: 'Vesper Libre', serif !important;
-    position: relative;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }
 
 .cursive {
