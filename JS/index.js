@@ -57,3 +57,15 @@ function topFunction() {
         behavior: "smooth",
     });
 }
+
+
+
+//form submission
+/*
+const infoForm = document.getElementById("info-form");
+
+validateInfo = (event) => {
+    event.preventDefault();
+}
+
+infoForm.addEventListener("submit", validateInfo)*/
