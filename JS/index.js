@@ -41,7 +41,7 @@ window.addEventListener("scroll", () => {
     for (var i = 0; i < reveals.length; i++) {
         var windowHeight = window.innerHeight;
         var elementTop = reveals[i].getBoundingClientRect().top;
-        var elementVisible = 50;
+        var elementVisible = 10;
 
         if (elementTop < windowHeight - elementVisible) {
             reveals[i].classList.add("active");
@@ -57,15 +57,3 @@ function topFunction() {
         behavior: "smooth",
     });
 }
-
-
-
-//form submission
-/*
-const infoForm = document.getElementById("info-form");
-
-validateInfo = (event) => {
-    event.preventDefault();
-}
-
-infoForm.addEventListener("submit", validateInfo)*/
