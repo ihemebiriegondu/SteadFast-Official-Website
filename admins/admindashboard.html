@@ -1,11 +1,128 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Steadfast Admin Dashboard</title>
+
+    <link rel="shortcut icon" href="../images/logo.jpg" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="dashboard.css">
 </head>
-<body>
-    
+
+<body id="dashboard-body">
+    <div>
+        <h1>Dashboard</h1>
+        <h3>upcoming events</h3>
+        <ul id="upcomingevent"></ul>
+
+        <input type="date">
+        <input type="file" accept=".png, .jpg, .jpeg" id="img-input" />
+        <button id="sss">sss</button>
+    </div>
+
+
+
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+        // Add Firebase products that you want to use
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
+        import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
+
+        import {
+            collection,
+            getDocs
+        } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD6z-NHLx-jHtua5qxsRYXB6tQ52RJ1QvU",
+            authDomain: "steadfastprivateschools-admin.firebaseapp.com",
+            projectId: "steadfastprivateschools-admin",
+            storageBucket: "steadfastprivateschools-admin.appspot.com",
+            messagingSenderId: "283296008725",
+            appId: "1:283296008725:web:6d1fca5d8cf93930ba1c1c",
+            measurementId: "G-0FX402CLGG"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+        const storage = getFirestore(app)
+        const Imstorage = getStorage(app);
+
+        const upcomingEventsList = document.getElementById("upcomingevent")
+        //getting upcoming events
+        const upcomingEvents = collection(storage, 'Upcoming-events');
+
+
+        //console.log(localStorage.getItem("user"))
+        let currentuser = localStorage.getItem("user")
+        if (currentuser == null) {
+            window.location.replace("http://127.0.0.1:5500/admins/admindashlogin.html");
+        }
+
+        function showDate() {
+            let input = document.querySelector("input").value
+            let imgInput = document.getElementById("img-input").value
+            //console.log(input)
+            var dateEntered = new Date(input);
+            let date = dateEntered.getDate()
+            //console.log(dateEntered);
+            console.log(date.toLocaleString('en-us', { minimumIntegerDigits: 2, useGrouping: false }))
+            console.log(dateEntered.toLocaleString('en-us', { month: 'short', year: 'numeric' }))
+
+
+            console.log(imgInput)
+
+            var blobURLref = URL.createObjectURL(imgInput);
+            
+            const storageRef = ref(Imstorage, 'images/firstImage.jpg');
+            
+
+            // 'file' comes from the Blob or File API
+            uploadBytes(storageRef, blobURLref).then((snapshot) => {
+                console.log('Uploaded a blob or file!');
+            });
+        }
+
+        document.getElementById("sss").addEventListener("click", showDate)
+
+        getDocs(upcomingEvents)
+            .then((upcomingEvent) => {
+                let events = []
+                upcomingEvent.docs.forEach((doc) => {
+                    events.push({ ...doc.data(), id: doc.id })
+                })
+                //console.log(events)
+                events.forEach(event => {
+                    console.log(event)
+                    var li = document.createElement('li');
+                    li.innerHTML = `
+                        <div>
+                            <h6>${event.Title}</h6>
+                            <p>${event.Date}</p>
+                            <p>${event.monthyear}</p>
+                        </div>
+                    `;
+                    upcomingEventsList.appendChild(li);
+                });
+            })
+
+
+
+    </script>
 </body>
+
 </html>

@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Italianno&family=Vesper+Libre:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap');
+
+
+body {
+    background-color: rgb(253, 240, 240);
+    height: 100% !important;
+}
+
+.maindiv {
+    margin: 2rem 0;
+}
+
+.maindiv h1 {
+    font-family: 'Charm', cursive !important;
+}
+
+#adminloginform {
+    background-color: rgb(252, 221, 221);
+    width: 50%;
+    border-radius: 2rem;
+    padding: 2rem;
+}
+
+#adminloginform div img {
+    width: 9rem;
+    height: 9rem;
+}
+
+#adminloginform div label {
+    font-family: 'Vesper Libre', serif !important;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+#adminloginform div input {
+    font-family: 'Vesper Libre', serif !important;
+    outline: none;
+    border: 2px solid rgb(98, 23, 23);
+    border-radius: 10px;
+    background: rgb(248, 207, 207);
+    padding: 11px 10px;
+}
+
+#adminloginform .btn {
+    font-family: 'Vesper Libre', serif !important;
+    background: rgb(98, 23, 23) !important;
+    color: rgb(253, 240, 240) !important;
+    padding: 11px 10px;
+    width: 100%;
+}
+
+@media (max-width: 1024px) {
+    #adminloginform {
+        width: 70%;
+        padding: 1.5rem;
+    }
+    
+    #adminloginform div img {
+        width: 9rem;
+        height: 9rem;
+    }
+}
+
+@media (max-width: 630px) {
+    #adminloginform {
+        width: 90%;
+    }
+}
+
+@media (max-width: 500px) {
+    #adminloginform {
+        width: 98%;
+        padding: 1rem;
+    }
+}
