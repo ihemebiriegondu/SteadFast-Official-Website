@@ -24,8 +24,10 @@
         <ul id="upcomingevent"></ul>
 
         <input type="date">
-        <input type="file" accept=".png, .jpg, .jpeg" id="img-input" />
+        <input type="file" accept="image/*" id="img-input" />
         <button id="sss">sss</button>
+
+        <img width="50px" src="" alt="" id="sample-img">
     </div>
 
 
@@ -73,9 +75,25 @@
             window.location.replace("http://127.0.0.1:5500/admins/admindashlogin.html");
         }
 
+
+        let imgInput = document.getElementById("img-input")
+        imgInput.onchange = () => {
+            let sampleImg = document.getElementById("sample-img")
+            let reader = new FileReader();
+
+            reader.readAsDataURL(imgInput.files[0]);
+            //console.log(imgInput.files[0]);
+            reader.onload = () => {
+                sampleImg.setAttribute("src", reader.result)
+                //console.log(reader.result)
+                let readerResult = reader.result
+                return(readerResult)
+            }
+        }
+
         function showDate() {
             let input = document.querySelector("input").value
-            let imgInput = document.getElementById("img-input").value
+
             //console.log(input)
             var dateEntered = new Date(input);
             let date = dateEntered.getDate()
@@ -83,19 +101,9 @@
             console.log(date.toLocaleString('en-us', { minimumIntegerDigits: 2, useGrouping: false }))
             console.log(dateEntered.toLocaleString('en-us', { month: 'short', year: 'numeric' }))
 
-
-            console.log(imgInput)
-
-            var blobURLref = URL.createObjectURL(imgInput);
-            
-            const storageRef = ref(Imstorage, 'images/firstImage.jpg');
-            
-
-            // 'file' comes from the Blob or File API
-            uploadBytes(storageRef, blobURLref).then((snapshot) => {
-                console.log('Uploaded a blob or file!');
-            });
+            console.log(readerResult)
         }
+
 
         document.getElementById("sss").addEventListener("click", showDate)
 
