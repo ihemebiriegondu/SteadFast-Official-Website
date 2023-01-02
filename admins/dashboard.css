@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Italianno&family=Vesper+Libre:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap');
+
+
+.dashboard-body {
+    position: relative;
+}
+
+.dashboard-body .dark-div {
+    border-radius: 0 0 10% 10% !important;
+}
+
+.dashboard-body .first-home-div {
+    padding: 1rem 1rem 5rem 1rem !important;
+    background: rgb(253, 240, 240) !important;
+    border-radius: 0 0 100% 100% !important;
+}
+
+.dashboard-body .first-home-div i {
+    font-size: 30px !important;
+}
+
+.dashboard-body .first-home-div h1 {
+    font-size: 30px !important;
+}
+
+.dashboard-body .first-home-div img {
+    width: 30px;
+    height: 30px;
+}
+
+.dashboard-body .second-home-div {
+    padding: 4rem 1rem 6rem 1rem;
+}
+
+.dashboard-body .second-home-div h1 {
+    font-family: 'Italianno', cursive !important;
+    font-size: 5rem !important;
+}
+
+.dashboard-body .third-home-div {
+    padding: 0 2rem 1rem 2rem;
+    margin-top: -5rem;
+}
+
+.dashboard-body .third-home-div .card {
+    height: 300px;
+    border: none !important;
+    transition: all 0.5s ease-in-out;
+}
+
+.dashboard-body .third-home-div .card:hover {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.dashboard-body .third-home-div .card i {
+    font-size: 40px;
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-body .third-home-div .card p {
+    font-size: 20px;
+    font-family: 'Vesper Libre', serif !important;
+    font-weight: 700 !important;
+}
+
+.dashboard-body .upcoming-events {
+    position: absolute;
+    width: 100%;
+    background: rgb(253, 240, 240);
+    transition: all 1s ease-in-out;
+    visibility: hidden;
+    bottom: 0;
+
+
+}
+
+.dashboard-body .upcoming-events.active {
+    transition: all 1s ease-in-out;
+    animation-name: showBackdrop;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    visibility: visible;
+}
+
+@keyframes showBackdrop {
+    from {
+        visibility: hidden;
+    }
+
+    to {
+        top: 0;
+        bottom: 0;
+        height: 100%;
+        visibility: visible;
+    }
+}
+
+.dashboard-body .upcoming-events .second-home-div {
+    padding: 1rem 1rem;
+}
+
+.dashboard-body .upcoming-events .add-btn {
+    font-family: 'Vesper Libre', serif !important;
+    background: rgb(98, 23, 23) !important;
+    color: rgb(253, 240, 240) !important;
+    padding: 11px 10px;
+    width: 20%;
+}
+
+.dashboard-body .upcoming-events .edit-btn {
+    font-family: 'Vesper Libre', serif !important;
+    background: rgb(98, 23, 23) !important;
+    color: rgb(253, 240, 240) !important;
+    padding: 6px 30px;
+}
+
+.dashboard-body .modal .modal-body img {
+    width: 100%;
+    object-fit: cover;
+    height: 300px;
+}
+
+.dashboard-body .modal .modal-body #img-input {
+    border: 1px dashed rgb(98, 23, 23) !important;
+    margin: 0;
+}
+
+.dashboard-body .modal .modal-body input {
+    border: 2px solid rgb(98, 23, 23) !important;
+    padding: 8px 10px;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 18px;
+}
