@@ -40,7 +40,7 @@
         // Add Firebase products that you want to use
         import { getAuth } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
         import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
-        import { getStorage, ref, uploadBytes, uploadString } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
+        import { getStorage, ref, uploadString, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
 
         import {
             collection,
@@ -80,8 +80,12 @@
         const getImageURl = () => {
             let sampleImg = document.getElementById("sample-img")
             let reader = new FileReader();
+            let imgInputFile = imgInput.files[0]
+            let imgInputFileName = imgInputFile.name
 
-            reader.readAsDataURL(imgInput.files[0]);
+            //console.log(imgInputFileName)
+
+            reader.readAsDataURL(imgInputFile);
             //console.log(imgInput.files[0]);
             reader.onload = () => {
                 sampleImg.setAttribute("src", reader.result)
@@ -91,7 +95,7 @@
             }
 
             const imageURL = sampleImg.getAttribute("src")
-            return imageURL
+            return [imgInputFileName, imageURL]
         }
 
         function showDate() {
@@ -105,12 +109,32 @@
             console.log(dateEntered.toLocaleString('en-us', { month: 'short', year: 'numeric' }))
 
             let newReader = getImageURl()
-            console.log(newReader)
+            const newReaderResult = newReader[1]
+            //console.log(newReaderResult)
+            const fileName = newReader[0]
 
-            /*const message4 = 'data:text/plain;base64,5b6p5Y+344GX44G+44GX44Gf77yB44GK44KB44Gn44Go44GG77yB';
-uploadString(storageRef, message4, 'data_url').then((snapshot) => {
-  console.log('Uploaded a data_url string!');
-});*/
+            //getting events images
+            const storageRef = ref(Imstorage, `images/${fileName}`);
+
+            try {
+                uploadString(storageRef, newReaderResult, 'data_url').then(
+                    (snapshot) => {
+                        console.log('Uploaded a data_url string!');
+                    },
+                    (error) => {
+                        console.log(error)
+                    }
+                );
+
+                const storageRef = ref(Imstorage, `images/${fileName}`);
+                getDownloadURL(storageRef).then(
+                    (downloadLink) => {
+                        console.log(downloadLink)
+                    }
+                );
+            } catch (error) {
+                console.log(error)
+            }
         }
 
 
