@@ -77,7 +77,7 @@
 
 
         let imgInput = document.getElementById("img-input")
-        imgInput.onchange = () => {
+        const getImageURl = () => {
             let sampleImg = document.getElementById("sample-img")
             let reader = new FileReader();
 
@@ -85,10 +85,13 @@
             //console.log(imgInput.files[0]);
             reader.onload = () => {
                 sampleImg.setAttribute("src", reader.result)
-                //console.log(reader.result)
+
                 let readerResult = reader.result
-                return(readerResult)
+                //console.log(readerResult)
             }
+
+            const imageURL = sampleImg.getAttribute("src")
+            return imageURL
         }
 
         function showDate() {
@@ -101,11 +104,13 @@
             console.log(date.toLocaleString('en-us', { minimumIntegerDigits: 2, useGrouping: false }))
             console.log(dateEntered.toLocaleString('en-us', { month: 'short', year: 'numeric' }))
 
-            console.log(readerResult)
+            let newReader = getImageURl()
+            console.log(newReader)
         }
 
 
         document.getElementById("sss").addEventListener("click", showDate)
+        imgInput.addEventListener("change", getImageURl)
 
         getDocs(upcomingEvents)
             .then((upcomingEvent) => {
