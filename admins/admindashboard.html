@@ -195,6 +195,7 @@
             <ul id="upcomingevent">
                 <!-- Adding list elements -->
             </ul>
+            <p class="text-center fs-4 no-event d-none">No upcoming events</p>
         </div>
         <div class="d-flex align-items-center justify-content-center pb-5">
             <button class="btn add-btn my-5" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Add
@@ -342,10 +343,16 @@
             })
             //console.log(events)
             upcomingEventsList.innerHTML = ""
-            events.forEach(event => {
-                //console.log(event)
-                var li = document.createElement('li');
-                li.innerHTML = `
+
+            if (events = []) {
+                document.querySelector(".no-event").classList.remove("d-none")
+            } else {
+                document.querySelector(".no-event").classList.add("d-none")
+
+                events.forEach(event => {
+                    //console.log(event)
+                    var li = document.createElement('li');
+                    li.innerHTML = `
                         <div class="mb-4">
                             <h6>${event.Date + ' ' + event.monthyear + " - " + event.Title}</h6>
                             <div class="d-flex justify-content-between pe-5">
@@ -357,8 +364,9 @@
                             <p class="d-none">${event.fulldate}</p>
                         </div>
                     `;
-                upcomingEventsList.appendChild(li);
-            });
+                    upcomingEventsList.appendChild(li);
+                });
+            }
         })
 
 
