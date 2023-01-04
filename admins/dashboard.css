@@ -124,7 +124,7 @@
 }
 
 .dashboard-body .error {
-    position: absolute !important;
+    position: fixed !important;
     top: -10px !important;
     right: 15px !important;
     width: auto;

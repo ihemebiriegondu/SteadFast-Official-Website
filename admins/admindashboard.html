@@ -197,7 +197,9 @@
                 <form class="editEventForm" id="">
                     <div class="modal-body">
                         <div class="mb-5">
-                            <img src="" alt="" class="eventImg">
+                            <label for="editImgInput">Change picture</label>
+                            <input type="file" accept="image/*" id="editImgInput" class="" />
+                            <img src="" alt="" class="eventImg" id="editImg">
                         </div>
                         <div class="mb-4 d-none eventInput allInputs">
                             <h5>Title: </h5>
@@ -423,7 +425,7 @@
         }
 
 
-        //getting image file and changing the src
+        //getting image file and changing the src for add new event
         let imgInput = document.getElementById("newImg-input")
         const getImageURl = () => {
             let sampleImg = document.getElementById("displayImage")
@@ -445,6 +447,32 @@
             const imageURL = sampleImg.getAttribute("src")
             return [imgInputFileName, imageURL]
         }
+
+        //getting image file from edit admin/staff
+        let editimgInput = document.getElementById("editImgInput")
+        const editImageURl = () => {
+            let sampleImg = document.getElementById("editImg")
+            let reader = new FileReader();
+            let editimgFile = editimgInput.files[0]
+            let editimgFileName = editimgFile.name
+
+            //console.log(editimgFileName)
+            reader.readAsDataURL(editimgFile);
+            //console.log(editimg.files[0]);
+            reader.onload = () => {
+                sampleImg.setAttribute("src", reader.result)
+                sampleImg.classList.remove("d-none")
+
+                let readerResult = reader.result
+                //console.log(readerResult)
+            }
+
+            const imageURL = sampleImg.getAttribute("src")
+            return [editimgFileName, imageURL]
+        }
+
+
+
 
         function addNewEvent(e) {
             e.preventDefault()
@@ -489,8 +517,6 @@
                                 })
                                     .then(() => {
                                         document.getElementById("addEventForm").reset()
-                                        document.getElementById("displayImage").setAttribute("src", "")
-                                        document.getElementById("displayImage").classList.add("d-none")
 
                                         showAlertsFunction("Upload Successful", "success", "bi-check2-square")
                                         setTimeout(hideAlertFunction, 5000)
@@ -534,84 +560,100 @@
             event.preventDefault()
             let docId = event.target.id
             //console.log(docId)
+            const editEventForm = document.querySelector(".editEventForm")
 
-            let input = document.querySelector("#dateInput").value
-            let title = document.getElementById("titleInput").value
+            if (editEventForm.classList.contains("eventz")) {
+                let input = document.querySelector("#dateInput").value
+                let title = document.getElementById("titleInput").value
 
-            //console.log(input)
-            let dateEntered = new Date(input);
-            let date = dateEntered.getDate()
-            //console.log(dateEntered);
+                //console.log(input)
+                let dateEntered = new Date(input);
+                let date = dateEntered.getDate()
+                //console.log(dateEntered);
 
-            let day = date.toLocaleString('en-us', { minimumIntegerDigits: 2, useGrouping: false })
-            let monyear = dateEntered.toLocaleString('en-us', { month: 'short', year: 'numeric' })
+                let day = date.toLocaleString('en-us', { minimumIntegerDigits: 2, useGrouping: false })
+                let monyear = dateEntered.toLocaleString('en-us', { month: 'short', year: 'numeric' })
 
-            const upcomingEvent = doc(storage, "Upcoming-events", docId);
+                const upcomingEvent = doc(storage, "Upcoming-events", docId);
 
-            if (input == '' || title == '') {
-                console.log("alert")
-            } else {
-                updateDoc(upcomingEvent, {
-                    Date: day,
-                    Title: title,
-                    fulldate: input,
-                    monthyear: monyear
-                })
-                    .then(() => {
-                        showAlertsFunction("Event updated", "success", "bi-check2-square")
-                        setTimeout(hideAlertFunction, 5000)
+                if (input == '' || title == '') {
+                    console.log("alert")
+                } else {
+                    updateDoc(upcomingEvent, {
+                        Date: day,
+                        Title: title,
+                        fulldate: input,
+                        monthyear: monyear
                     })
-                    .catch(error => {
-                        showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
+                        .then(() => {
+                            showAlertsFunction("Event updated", "success", "bi-check2-square")
+                            setTimeout(hideAlertFunction, 5000)
+                        })
+                        .catch(error => {
+                            showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
+                            setTimeout(hideAlertFunction, 5000)
+                        })
+                }
+            } else if (editEventForm.classList.contains("adminz")) {
+                let name = document.querySelector("#nameInput").value
+                let position = document.getElementById("positionInput").value
+
+                let newReader = editImageURl()
+                const newReaderResult = newReader[1]
+                //console.log(newReaderResult)
+                const fileName = newReader[0]
+
+                //getting events images
+                const storageRef = ref(Imstorage, `images/${fileName}`);
+
+                const adminList = doc(storage, "Admin-list", docId);
+
+                if (name == '' || position == '') {
+                    console.log("alert")
+                } else {
+                    try {
+                        uploadString(storageRef, newReaderResult, 'data_url').then(
+                            (snapshot) => {
+                                //console.log('Uploaded a data_url string!');
+                                getDownloadURL(snapshot.ref).then((link) => {
+                                    //console.log(link)
+
+                                    updateDoc(adminList, {
+                                        name: name,
+                                        position: position,
+                                        picture: link
+                                    })
+                                        .then(() => {
+                                            document.getElementById("editImgInput").value = ""
+
+                                            showAlertsFunction("Admin updated", "success", "bi-check2-square")
+                                            setTimeout(hideAlertFunction, 5000)
+                                        })
+                                        .catch(error => {
+                                            showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
+                                            setTimeout(hideAlertFunction, 5000)
+                                        })
+
+                                })
+                                //console.log(link)
+                            },
+                            (error) => {
+                                showAlertsFunction(error, "danger", "bi-exclamation-triangle")
+                                setTimeout(hideAlertFunction, 5000)
+                            }
+                        );
+                    } catch (error) {
+                        showAlertsFunction(error, "danger", "bi-exclamation-triangle")
                         setTimeout(hideAlertFunction, 5000)
-                    })
+                    }
+                }
             }
         }
-
-
-        const editAdmin = (event) => {
-
-            event.preventDefault()
-            let docId = event.target.id
-            console.log(docId)
-
-            let name = document.querySelector("#nameInput").value
-            let position = document.getElementById("positionInput").value
-
-            //console.log(input)
-            let dateEntered = new Date(input);
-            let date = dateEntered.getDate()
-            //console.log(dateEntered);
-
-            let day = date.toLocaleString('en-us', { minimumIntegerDigits: 2, useGrouping: false })
-            let monyear = dateEntered.toLocaleString('en-us', { month: 'short', year: 'numeric' })
-
-            const upcomingEvent = doc(storage, "Upcoming-events", docId);
-
-            if (input == '' || title == '') {
-                console.log("alert")
-            } else {
-                updateDoc(upcomingEvent, {
-                    Date: day,
-                    Title: title,
-                    fulldate: input,
-                    monthyear: monyear
-                })
-                    .then(() => {
-                        showAlertsFunction("Event updated", "success", "bi-check2-square")
-                        setTimeout(hideAlertFunction, 5000)
-                    })
-                    .catch(error => {
-                        showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
-                        setTimeout(hideAlertFunction, 5000)
-                    })
-            }
-        }
-
 
 
 
         imgInput.addEventListener("change", getImageURl)
+        editimgInput.addEventListener("change", editImageURl)
         document.getElementById("addEventForm").addEventListener("submit", addNewEvent)
         document.querySelector(".deleteEventButton").addEventListener("click", deleteEvent)
         document.querySelector(".editEventForm").addEventListener('submit', editEvent)

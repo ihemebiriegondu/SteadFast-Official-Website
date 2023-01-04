@@ -34,6 +34,7 @@ const showEditEventModal = (event) => {
     const button = event.target
     const eventInputs = document.querySelectorAll(".eventInput");
     const allInputs = document.querySelectorAll(".allInputs");
+    const editEventForm = document.querySelector(".editEventForm")
 
     allInputs.forEach(input => {
         input.classList.add("d-none")
@@ -47,12 +48,19 @@ const showEditEventModal = (event) => {
     document.querySelector("#dateInput").value = button.parentElement.parentElement.children[4].textContent;
 
     document.querySelector(".editEventForm").id = button.id
+    if (editEventForm.classList.contains("adminz")) {
+        editEventForm.classList.remove("adminz")
+        editEventForm.classList.add("eventz")
+    } else {
+        editEventForm.classList.add("eventz")
+    }
 }
 
 const showEditAdminModal = (event) => {
     const button = event.target
     const adminInputs = document.querySelectorAll(".adminInput");
     const allInputs = document.querySelectorAll(".allInputs");
+    const editEventForm = document.querySelector(".editEventForm")
 
     allInputs.forEach(input => {
         input.classList.add("d-none")
@@ -64,6 +72,14 @@ const showEditAdminModal = (event) => {
     document.querySelector(".eventImg").src = button.parentElement.parentElement.children[4].src;
     document.querySelector("#nameInput").value = button.parentElement.parentElement.children[1].textContent;
     document.querySelector("#positionInput").value = button.parentElement.parentElement.children[2].textContent;
+
+    document.querySelector(".editEventForm").id = button.id
+    if (editEventForm.classList.contains("eventz")) {
+        editEventForm.classList.remove("eventz")
+        editEventForm.classList.add("adminz")
+    } else {
+        editEventForm.classList.add("adminz")
+    }
 }
 
 const showDeleteEventModal = (event) => {
