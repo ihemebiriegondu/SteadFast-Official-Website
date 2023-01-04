@@ -72,7 +72,8 @@
                                     News & Events
                                 </a>
                                 <ul class="dropdown-menu bg-primary border-0" aria-labelledby="navbarDropdown2">
-                                    <li><a class="dropdown-item text-light" href="./calender.html">Upcoming Events</a></li>
+                                    <li><a class="dropdown-item text-light" href="./calender.html">Upcoming Events</a>
+                                    </li>
                                     <hr class="text-light">
                                     <li><a class="dropdown-item text-light" href="./news.html">newsroom</a></li>
                                 </ul>
@@ -196,7 +197,8 @@
                         <img src="./images/School-images/sketch1634473085266.png" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
                             <h5 class="display-1 fw-normal cursive big-heading">Welcome!</h5>
-                            <p class="fs-5 reveal">Steadfast Prvate School welcomes you Lorem ipsum dolor sit amet consectetur
+                            <p class="fs-5 reveal">Steadfast Prvate School welcomes you Lorem ipsum dolor sit amet
+                                consectetur
                                 adipisicing
                                 elit. Recusandae, corrupti. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                                 Excepturi temporibus beatae provident mollitia sint soluta architecto explicabo alias
@@ -210,7 +212,8 @@
                             class="bg-primary d-md-none d-block text-white h-50 text-center d-flex flex-column m-auto align-items-center justify-content-center px-sm-5 px-3">
                             <div class="text-center">
                                 <h5 class="display-1 fw-normal cursive">Welcome!</h5>
-                                <p class="reveal">Steadfast Prvate School welcomes you Lorem ipsum dolor sit amet consectetur
+                                <p class="reveal">Steadfast Prvate School welcomes you Lorem ipsum dolor sit amet
+                                    consectetur
                                     adipisicing
                                     elit. Recusandae, corrupti. Lorem ipsum dolor, sit amet consectetur adipisicing
                                     elit.
@@ -332,59 +335,11 @@
             <div class="bg-light px-3 py-3 pb-4 mb-5 shadow-sm reveal">
                 <h2 class="text-uppercase semi-cursive">Upcoming events</h2>
                 <hr class="text-primary">
-                <div class="row row-cols-1 row-cols-lg-2 g-4 px-sm-5">
-                    <div class="col position-relative reveal">
-                        <div class="card event-card border-0 shadow-sm bg-secondary">
-                            <div class="card-img-div"><img src="./images/miami.jpg" class="card-img-top" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Orientation</h5>
-                            </div>
-                        </div>
-                        <div class="bg-primary text-white w-25 text-center position-absolute top-0 rounded">
-                            <h1 class="mb-0 mt-2">02</h1>
-                            <h6 class="lead mt-0 fs-6">Aug 2022</h6>
-                        </div>
-                    </div>
-                    <div class="col position-relative reveal">
-                        <div class="card event-card border-0 shadow-sm bg-secondary">
-                            <div class="card-img-div"><img src="./images/munich.jpg" class="card-img-top" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Graduation Ceremony</h5>
-                            </div>
-                        </div>
-                        <div class="bg-primary text-white w-25 text-center position-absolute top-0 rounded">
-                            <h1 class="mb-0 mt-2">02</h1>
-                            <h6 class="lead mt-0 fs-6">September 2022</h6>
-                        </div>
-                    </div>
-                    <div class="col position-relative reveal">
-                        <div class="card event-card border-0 shadow-sm bg-secondary">
-                            <div class="card-img-div"><img src="./images/ocean.jpg" class="card-img-top" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                            </div>
-                        </div>
-                        <div class="bg-primary text-white w-25 text-center position-absolute top-0 rounded">
-                            <h1 class="mb-0 mt-2">02</h1>
-                            <h6 class="lead mt-0 fs-6">Aug 2022</h6>
-                        </div>
-                    </div>
-                    <div class="col position-relative reveal">
-                        <div class="card event-card border-0 shadow-sm bg-secondary">
-                            <div class="card-img-div"><img src="./images/pexels-asad-photo-maldives-1450340.jpg"
-                                    class="card-img-top" alt="..."></div>
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                            </div>
-                        </div>
-                        <div class="bg-primary text-white w-25 text-center position-absolute top-0 rounded">
-                            <h1 class="mb-0 mt-2">02</h1>
-                            <h6 class="lead mt-0 fs-6">Aug 2022</h6>
-                        </div>
-                    </div>
+                <div class="no-event d-none">
+                    <p>No upcoming events</p>
+                </div>
+                <div class="row row-cols-1 row-cols-lg-2 g-4 px-sm-5" id="upcomingEventsContainer">
+                    <!--Events gotten from database would be displayed here-->
                 </div>
                 <div class="text-end px-5 mt-3 reveal">
                     <a href="./calender.html" class="btn btn-primary text-white px-4 py-3">View Calender</a>
@@ -406,11 +361,13 @@
                             ipsam
                             eaque animi similique esse magnam, aperiam modi!
                         </p>
-                        <p class="reveal">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo iure doloremque recusandae
+                        <p class="reveal">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo iure
+                            doloremque recusandae
                             ducimus dolorem nostrum, quam, numquam dolor soluta eum beatae quis? Facere dolorum
                             quibusdam
                             esse perferendis voluptas obcaecati iusto.</p>
-                        <p class="reveal">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab libero at quis impedit quas
+                        <p class="reveal">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab libero at quis
+                            impedit quas
                             exercitationem asperiores, possimus sapiente repellendus quae obcaecati saepe inventore id
                             cum <span class="d-lg-inline d-none">accusantium facilis doloribus magnam? Voluptatum
                                 facere, natus, a
@@ -685,6 +642,70 @@
         </div>
     </footer>
 
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        // Add Firebase products that you want to use
+        import { getFirestore, collection, query, orderBy, onSnapshot } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD6z-NHLx-jHtua5qxsRYXB6tQ52RJ1QvU",
+            authDomain: "steadfastprivateschools-admin.firebaseapp.com",
+            projectId: "steadfastprivateschools-admin",
+            storageBucket: "steadfastprivateschools-admin.appspot.com",
+            messagingSenderId: "283296008725",
+            appId: "1:283296008725:web:6d1fca5d8cf93930ba1c1c",
+            measurementId: "G-0FX402CLGG"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const storage = getFirestore(app)
+
+        const upcomingEventsContainer = document.getElementById("upcomingEventsContainer");
+        //getting upcoming events
+        const upcomingEvents = collection(storage, 'Upcoming-events');
+        //getting query, for ordering
+        const q = query(upcomingEvents, orderBy('fulldate', 'asc'))
+
+        //updating the events
+        onSnapshot(q, (upcomingEvent) => {
+            let events = []
+            upcomingEvent.docs.forEach((doc) => {
+                events.push({ ...doc.data(), id: doc.id })
+            })
+            //console.log(events)
+            upcomingEventsContainer.innerHTML = ""
+
+            if (events.length == 0) {
+                document.querySelector(".no-event").classList.remove("d-none")
+            } else {
+                document.querySelector(".no-event").classList.add("d-none")
+
+                events.forEach(event => {
+                    //console.log(event)
+                    var div = document.createElement('div');
+                    div.innerHTML = `
+                        <div class="col position-relative reveal">
+                            <div class="card event-card border-0 shadow-sm bg-secondary">
+                                <div class="card-img-div"><img src="${event.imageSrc}" class="card-img-top" alt="..."></div>
+                                <div class="card-body">
+                                    <h5 class="card-title">${event.Title}</h5>
+                                </div>
+                            </div>
+                            <div class="bg-primary text-white w-25 text-center position-absolute top-0 rounded">
+                                <h1 class="mb-0 mt-2">${event.Date}</h1>
+                                <h6 class="lead mt-0 fs-6">${event.monthyear}</h6>
+                            </div>
+                        </div>
+                    `;
+                    upcomingEventsContainer.appendChild(div);
+                });
+            }
+        })
+
+
+    </script>
 
     <script src="./JS/index.js"></script>
 </body>

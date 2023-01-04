@@ -203,6 +203,10 @@
         </div>
     </div>
 
+    <!--Error messages-->
+    <div class="error">
+
+    </div>
     <!--Modals-->
 
     <!--Edit modal-->
@@ -214,24 +218,25 @@
                     <h1 class="modal-title fs-4" id="staticBackdropLabel">Edit Event</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="mb-5">
-                        <img src="" alt="" class="eventImg">
-                        <input type="file" accept="image/*" id="img-input" class="" />
+                <form class="editEventForm" id="">
+                    <div class="modal-body">
+                        <div class="mb-5">
+                            <img src="" alt="" class="eventImg">
+                        </div>
+                        <div class="mb-4">
+                            <h5>Title: </h5>
+                            <input type="text" value="Graduation" id="titleInput">
+                        </div>
+                        <div class="mb-4">
+                            <h5>Date: </h5>
+                            <input type="date" value="2013-01-08" id="dateInput">
+                        </div>
                     </div>
-                    <div class="mb-4">
-                        <h5>Title: </h5>
-                        <input type="text" value="Graduation" id="titleInput">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="editEventButton" data-bs-dismiss="modal">Save Changes</button>
                     </div>
-                    <div class="mb-4">
-                        <h5>Date: </h5>
-                        <input type="date" value="2013-01-08" id="dateInput">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="editEventButton">Save Changes</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -302,7 +307,7 @@
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
         // Add Firebase products that you want to use
         import { getAuth } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
-        import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
+        import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, query, orderBy, updateDoc } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
         import { getStorage, ref, uploadString, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
 
 
@@ -326,6 +331,8 @@
         const upcomingEventsList = document.getElementById("upcomingevent")
         //getting upcoming events
         const upcomingEvents = collection(storage, 'Upcoming-events');
+        //getting query, for ordering
+        const q = query(upcomingEvents, orderBy('fulldate', 'asc'))
 
 
         //checking if there is a user signed in
@@ -336,7 +343,7 @@
         }
 
         //updating the events
-        onSnapshot(upcomingEvents, (upcomingEvent) => {
+        onSnapshot(q, (upcomingEvent) => {
             let events = []
             upcomingEvent.docs.forEach((doc) => {
                 events.push({ ...doc.data(), id: doc.id })
@@ -344,7 +351,7 @@
             //console.log(events)
             upcomingEventsList.innerHTML = ""
 
-            if (events = []) {
+            if (events.length == 0) {
                 document.querySelector(".no-event").classList.remove("d-none")
             } else {
                 document.querySelector(".no-event").classList.add("d-none")
@@ -353,10 +360,10 @@
                     //console.log(event)
                     var li = document.createElement('li');
                     li.innerHTML = `
-                        <div class="mb-4">
+                        <div class="mb-5">
                             <h6>${event.Date + ' ' + event.monthyear + " - " + event.Title}</h6>
-                            <div class="d-flex justify-content-between pe-5">
-                                <button type="button" class="btn edit-btn ms-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="showEditEventModal(event)">Edit</button>
+                            <div class="d-flex justify-content-between pe-5 mt-2">
+                                <button type="button" class="btn edit-btn ms-3" data-bs-toggle="modal" id="${event.id}" data-bs-target="#staticBackdrop" onclick="showEditEventModal(event)">Edit</button>
                                 <button type="button" class="btn edit-btn ms-3" data-bs-toggle="modal" id="${event.id}" data-bs-target="#staticBackdrop3" onclick="showDeleteEventModal(event)">Delete</button>
                             </div>
                             <p class="d-none">${event.Title}</p>
@@ -368,6 +375,34 @@
                 });
             }
         })
+
+
+        //alerts
+        const alertDiv = document.querySelector(".error")
+
+        const showAlertsFunction = (message, type, icon) => {
+
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+                `
+                <div class="alert alert-${type} alert-dismissible" role="alert">
+                    <div class="d-flex align-items-baseline">
+                        <i class="bi ${icon} me-3"></i>
+                        <p class="mb-0 pb-0 me-5">${message}</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                `
+            ].join('')
+
+            alertDiv.appendChild(wrapper)
+            alertDiv.classList.add("active")
+        }
+
+        const hideAlertFunction = () => {
+            alertDiv.classList.remove("active")
+            alertDiv.innerHTML = ""
+        }
 
 
         //getting image file and changing the src
@@ -414,37 +449,49 @@
             //getting events images
             const storageRef = ref(Imstorage, `images/${fileName}`);
 
-            try {
-                uploadString(storageRef, newReaderResult, 'data_url').then(
-                    (snapshot) => {
-                        //console.log('Uploaded a data_url string!');
-                        getDownloadURL(snapshot.ref).then((link) => {
-                            //console.log(link)
+            if (input == '' || title == '') {
+                document.getElementById("addEventForm").reset()
+                document.getElementById("displayImage").setAttribute("src", "")
+                document.getElementById("displayImage").classList.add("d-none")
+                console.log("alert")
+            } else {
+                try {
+                    uploadString(storageRef, newReaderResult, 'data_url').then(
+                        (snapshot) => {
+                            //console.log('Uploaded a data_url string!');
+                            getDownloadURL(snapshot.ref).then((link) => {
+                                //console.log(link)
 
-                            addDoc(upcomingEvents, {
-                                Date: day,
-                                Title: title,
-                                fulldate: input,
-                                imageSrc: link,
-                                monthyear: monyear
-                            })
-                                .then(() => {
-                                    document.getElementById("addEventForm").reset()
-                                    document.getElementById("displayImage").setAttribute("src", "")
-                                    document.getElementById("displayImage").classList.add("d-none")
-                                    console.log("uploaded")
+                                addDoc(upcomingEvents, {
+                                    Date: day,
+                                    Title: title,
+                                    fulldate: input,
+                                    imageSrc: link,
+                                    monthyear: monyear
                                 })
+                                    .then(() => {
+                                        document.getElementById("addEventForm").reset()
+                                        document.getElementById("displayImage").setAttribute("src", "")
+                                        document.getElementById("displayImage").classList.add("d-none")
 
-                        })
-                        //console.log(link)
-                    },
-                    (error) => {
-                        console.log(error)
-                    }
-                );
-            } catch (error) {
-                console.log(error)
+                                        showAlertsFunction("Upload Successful", "success", "bi-check2-square")
+                                        setTimeout(hideAlertFunction, 5000)
+                                    })
+
+                            })
+                            //console.log(link)
+                        },
+                        (error) => {
+                            showAlertsFunction(error, "danger", "bi-exclamation-triangle")
+                            setTimeout(hideAlertFunction, 5000)
+                        }
+                    );
+                } catch (error) {
+                    showAlertsFunction(error, "danger", "bi-exclamation-triangle")
+                    setTimeout(hideAlertFunction, 5000)
+                }
             }
+
         }
 
 
@@ -455,14 +502,59 @@
             const upcomingEvent = doc(storage, "Upcoming-events", docId);
             deleteDoc(upcomingEvent)
                 .then(() => {
-                    console.log("deleted")
+                    showAlertsFunction("Deleted Successful", "success", "bi-check2-square")
+                    setTimeout(hideAlertFunction, 5000)
                 })
+                .catch(error => {
+                    showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
+                    setTimeout(hideAlertFunction, 5000)
+                })
+        }
+
+
+        const editEvent = (event) => {
+            event.preventDefault()
+            let docId = event.target.id
+            //console.log(docId)
+
+            let input = document.querySelector("#dateInput").value
+            let title = document.getElementById("titleInput").value
+
+            //console.log(input)
+            let dateEntered = new Date(input);
+            let date = dateEntered.getDate()
+            //console.log(dateEntered);
+
+            let day = date.toLocaleString('en-us', { minimumIntegerDigits: 2, useGrouping: false })
+            let monyear = dateEntered.toLocaleString('en-us', { month: 'short', year: 'numeric' })
+
+            const upcomingEvent = doc(storage, "Upcoming-events", docId);
+
+            if (input == '' || title == '') {
+                console.log("alert")
+            } else {
+                updateDoc(upcomingEvent, {
+                    Date: day,
+                    Title: title,
+                    fulldate: input,
+                    monthyear: monyear
+                })
+                    .then(() => {
+                        showAlertsFunction("Event updated", "success", "bi-check2-square")
+                        setTimeout(hideAlertFunction, 5000)
+                    })
+                    .catch(error => {
+                        showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
+                        setTimeout(hideAlertFunction, 5000)
+                    })
+            }
         }
 
 
         imgInput.addEventListener("change", getImageURl)
         document.getElementById("addEventForm").addEventListener("submit", addNewEvent)
         document.querySelector(".deleteEventButton").addEventListener("click", deleteEvent)
+        document.querySelector(".editEventForm").addEventListener('submit', editEvent)
 
 
 

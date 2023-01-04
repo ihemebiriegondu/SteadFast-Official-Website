@@ -10,6 +10,8 @@ const showEditEventModal = (event) => {
     document.querySelector(".eventImg").src = button.parentElement.parentElement.children[3].src;
     document.querySelector("#titleInput").value = button.parentElement.parentElement.children[2].textContent;
     document.querySelector("#dateInput").value = button.parentElement.parentElement.children[4].textContent;
+
+    document.querySelector(".editEventForm").id = button.id
 }
 
 const showDeleteEventModal = (event) => {

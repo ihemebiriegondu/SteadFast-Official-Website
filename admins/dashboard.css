@@ -139,6 +139,25 @@
     font-size: 18px;
 }
 
+.dashboard-body .error {
+    position: absolute !important;
+    top: -10px !important;
+    right: 15px !important;
+    width: auto;
+    z-index: 6 !important;
+    visibility: hidden !important;
+    transition: all 0.5s ease-in-out;
+}
+
+.dashboard-body .error.active {
+    top: 10px !important;
+    visibility: visible !important;
+    transition: all 0.5s ease-in-out;
+}
+
+
+
+
 @media (max-width: 1024px) {
     .dashboard-body .second-home-div h1 {
         font-family: 'Italianno', cursive !important;
