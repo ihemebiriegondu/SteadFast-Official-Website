@@ -139,6 +139,14 @@
     transition: all 0.5s ease-in-out;
 }
 
+.dashboard-body .staff-listSubTitle {
+    font-size: 25px;
+    font-family: 'Charm', cursive !important;
+    font-weight: 700;
+    margin-left: 5rem;
+    margin-bottom: 3rem;
+}
+
 
 
 

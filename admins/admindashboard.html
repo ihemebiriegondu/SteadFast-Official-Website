@@ -80,7 +80,7 @@
                     </div>
                     <div class="col m-0 mb-4">
                         <div class="card justify-content-center shadow" data-myOffcanvas="staff-list"
-                        onclick="showEventBackdrop(event)">
+                            onclick="showEventBackdrop(event)">
                             <div class="d-flex flex-column justify-content-center" data-myOffcanvas="staff-list">
                                 <i class="bi bi-people text-center text-primary" data-myOffcanvas="staff-list"></i>
                                 <p class="text-center p-0 m-0 text-primary" data-myOffcanvas="staff-list">Staffs</p>
@@ -162,16 +162,20 @@
             </div>
         </div>
         <div class="pt-5">
-            <ul id="upcomingevent">
+            <h5 class="staff-listSubTitle">Administration</h5>
+            <ul id="adminlist" class="ps-5">
                 <!-- Adding list elements -->
             </ul>
-            <div class="no-event d-none">
-                <p class="text-center">No upcoming events</p>
-            </div>
+        </div>
+        <div class="pt-5">
+            <h5 class="staff-listSubTitle">Staffs</h5>
+            <ol id="stafflist" class="ps-5">
+                <!-- Adding list elements -->
+            </ol>
         </div>
         <div class="d-flex align-items-center justify-content-center pb-5">
             <button class="btn add-btn my-5" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Add
-                Event</button>
+                Staff</button>
         </div>
     </div>
 
@@ -195,13 +199,21 @@
                         <div class="mb-5">
                             <img src="" alt="" class="eventImg">
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-4 d-none eventInput allInputs">
                             <h5>Title: </h5>
                             <input type="text" value="Graduation" id="titleInput">
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-4 d-none eventInput allInputs">
                             <h5>Date: </h5>
                             <input type="date" value="2013-01-08" id="dateInput">
+                        </div>
+                        <div class="mb-4 d-none adminInput allInputs">
+                            <h5>Name: </h5>
+                            <input type="text" value="Graduation" id="nameInput">
+                        </div>
+                        <div class="mb-4 d-none adminInput allInputs">
+                            <h5>Postion: </h5>
+                            <input type="text" value="Graduation" id="positionInput">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -302,10 +314,13 @@
         const Imstorage = getStorage(app);
 
         const upcomingEventsList = document.getElementById("upcomingevent")
-        //getting upcoming events
+        const adminList = document.getElementById("adminlist")
+        //getting all stored data
         const upcomingEvents = collection(storage, 'Upcoming-events');
+        const adminLists = collection(storage, "Admin-list")
         //getting query, for ordering
-        const q = query(upcomingEvents, orderBy('fulldate', 'asc'))
+        const qUp = query(upcomingEvents, orderBy('fulldate', 'asc'))
+        const qAdmin = query(adminLists, orderBy('order', 'asc'))
 
 
         //checking if there is a user signed in
@@ -316,7 +331,7 @@
         }
 
         //updating the events
-        onSnapshot(q, (upcomingEvent) => {
+        onSnapshot(qUp, (upcomingEvent) => {
             let events = []
             upcomingEvent.docs.forEach((doc) => {
                 events.push({ ...doc.data(), id: doc.id })
@@ -348,6 +363,36 @@
                 });
             }
         })
+
+
+        //updating the admin list
+        onSnapshot(qAdmin, (admin) => {
+            let admins = []
+            admin.docs.forEach((doc) => {
+                admins.push({ ...doc.data(), id: doc.id })
+            })
+            //console.log(admins)
+            adminList.innerHTML = ""
+
+
+            admins.forEach(admin => {
+                //console.log(admin)
+                var li = document.createElement('li');
+                li.innerHTML = `
+                        <div class="mb-5">
+                            <h6>${admin.name + " - " + admin.position}</h6>
+                            <p class="d-none">${admin.name}</p>
+                            <p class="d-none">${admin.position}</p>
+                            <div class="d-flex justify-content-between pe-5 mt-2">
+                                <button type="button" class="btn edit-btn ms-3" data-bs-toggle="modal" id="${admin.id}" data-bs-target="#staticBackdrop" onclick="showEditAdminModal(event)">Edit</button>
+                            </div>
+                            <img width = "20px" class="d-none" src="${admin.picture}" alt="">
+                        </div>
+                    `;
+                adminList.appendChild(li);
+            });
+        })
+
 
 
         //alerts
@@ -522,6 +567,48 @@
                     })
             }
         }
+
+
+        const editAdmin = (event) => {
+
+            event.preventDefault()
+            let docId = event.target.id
+            console.log(docId)
+
+            let name = document.querySelector("#nameInput").value
+            let position = document.getElementById("positionInput").value
+
+            //console.log(input)
+            let dateEntered = new Date(input);
+            let date = dateEntered.getDate()
+            //console.log(dateEntered);
+
+            let day = date.toLocaleString('en-us', { minimumIntegerDigits: 2, useGrouping: false })
+            let monyear = dateEntered.toLocaleString('en-us', { month: 'short', year: 'numeric' })
+
+            const upcomingEvent = doc(storage, "Upcoming-events", docId);
+
+            if (input == '' || title == '') {
+                console.log("alert")
+            } else {
+                updateDoc(upcomingEvent, {
+                    Date: day,
+                    Title: title,
+                    fulldate: input,
+                    monthyear: monyear
+                })
+                    .then(() => {
+                        showAlertsFunction("Event updated", "success", "bi-check2-square")
+                        setTimeout(hideAlertFunction, 5000)
+                    })
+                    .catch(error => {
+                        showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
+                        setTimeout(hideAlertFunction, 5000)
+                    })
+            }
+        }
+
+
 
 
         imgInput.addEventListener("change", getImageURl)
