@@ -1,7 +1,33 @@
-const showEventBackdrop = () => {
-    let eventDiv = document.querySelector(".upcoming-events")
+const hideAllEventBackdrop = (event) => {
+    let allCanvases = document.querySelectorAll(".myoffcanvases");
+    let navLinks = document.querySelectorAll(".nav-link")
+
+    navLinks.forEach(link => {
+        link.classList.remove("active")
+    });
+    allCanvases.forEach(canvas => {
+        canvas.classList.remove("active")
+    });
+    event.target.classList.add("active")
+}
+
+const showEventBackdrop = (event) => {
+    let offcanvasTarget = event.target
+    let offcanvasTargetData = offcanvasTarget.dataset.myoffcanvas
+    let navLinks = document.querySelectorAll(".nav-link")
+
+    //console.log(offcanvasTarget)
+    //console.log(offcanvasTargetData)
+    hideAllEventBackdrop(event)
+
+    navLinks.forEach(link => {
+        link.classList.remove("active")
+    });
+
+    let eventDiv = document.getElementById(offcanvasTargetData)
 
     eventDiv.classList.add("active")
+    offcanvasTarget.classList.add("active")
 }
 
 const showEditEventModal = (event) => {

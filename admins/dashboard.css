@@ -6,6 +6,10 @@
     position: relative;
 }
 
+.dashboard-body .nav-link:hover {
+    cursor: pointer;
+}
+
 .dashboard-body .dark-div {
     border-radius: 0 0 10% 10% !important;
 }
@@ -70,35 +74,15 @@
     position: absolute;
     width: 100%;
     background: rgb(253, 240, 240);
-    transition: all 1s ease-in-out;
     visibility: hidden;
     bottom: 0;
-
-
 }
 
 .dashboard-body .upcoming-events.active {
-    transition: all 1s ease-in-out;
-    animation-name: showBackdrop;
-    animation-timing-function: ease-in-out;
-    animation-duration: 1s;
     top: 0;
     bottom: 0;
     height: 100%;
     visibility: visible;
-}
-
-@keyframes showBackdrop {
-    from {
-        visibility: hidden;
-    }
-
-    to {
-        top: 0;
-        bottom: 0;
-        height: 100%;
-        visibility: visible;
-    }
 }
 
 .dashboard-body .upcoming-events .second-home-div {
@@ -160,8 +144,11 @@
 
 @media (max-width: 1024px) {
     .dashboard-body .second-home-div h1 {
-        font-family: 'Italianno', cursive !important;
-        font-size: 3rem !important;
+        font-size: 4rem !important;
+    }
+
+    .dashboard-body .third-home-div .card {
+        height: 230px;
     }
 
     .dashboard-body .upcoming-events .add-btn {
@@ -170,5 +157,16 @@
         color: rgb(253, 240, 240) !important;
         padding: 11px 10px;
         width: 70%;
+    }
+}
+
+@media (max-width: 576px) {
+    .dashboard-body .second-home-div h1 {
+        font-size: 3rem !important;
+    }
+
+    .dashboard-body .third-home-div {
+        padding: 0 1rem 1rem 1rem;
+        margin-top: -5rem;
     }
 }

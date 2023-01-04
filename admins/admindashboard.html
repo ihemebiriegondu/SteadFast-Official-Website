@@ -30,7 +30,7 @@
                         <i class="bi bi-list text-primary"></i>
                     </a>
                 </div>
-                <div class="d-flex">
+                <div class="d-flex nav-link" onclick="hideAllEventBackdrop()">
                     <h1 class="mb-0 mt-0 text-primary fw-normal me-1">SPS</h1>
                     <img src="../images/logo-removebg-preview.png" alt="">
                 </div>
@@ -44,88 +44,18 @@
                     <div class="offcanvas-body ps-5">
                         <ul class="navbar-nav text-uppercase mb-2 mb-lg-0 w-100 justify-content-around">
                             <li class="nav-item">
-                                <a class="nav-link active text-primary" aria-current="page" href="./index.html">Home</a>
+                                <p class="nav-link active text-primary p-0" aria-current="page"
+                                    onclick="hideAllEventBackdrop(event)" data-bs-dismiss="offcanvas">Dashboard</p>
+                            </li>
+                            <li class="nav-item text-decoration-none m-0 text-uppercase" style="list-style-type: none;">
+                                <p class="nav-link text-primary p-0" data-myOffcanvas="upcoming-events"
+                                    onclick="showEventBackdrop(event)" data-bs-dismiss="offcanvas">Upcoming Events</p>
+                            </li>
+                            <li class="nav-item text-decoration-none m-0 text-uppercase" style="list-style-type: none;">
+                                <p class="nav-link text-primary p-0" data-myOffcanvas="staff-list"
+                                    onclick="showEventBackdrop(event)" data-bs-dismiss="offcanvas">Staff List</p>
                             </li>
                         </ul>
-                        <div class="accordion accordion-flush p-0" id="accordionFlushExample">
-                            <div class="accordion-item border-0 mb-4">
-                                <h2 class="accordion-header fs-6 fw-normal" id="flush-headingOne">
-                                    <a class="accordion-button justify-content-start collapsed p-0 bg-light border-0 text-primary text-decoration-none text-uppercase"
-                                        href="" role="button" data-bs-toggle="collapse"
-                                        data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                        aria-controls="flush-collapseOne">
-                                        About
-                                    </a>
-                                </h2>
-                                <div id="flush-collapseOne" class="accordion-collapse collapse"
-                                    aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body bg-light pb-0">
-                                        <ul class="border-0 text-uppercase py-2 mb-0" style="list-style-type: none;">
-                                            <li><a class="text-primary text-decoration-none" href="./about.html">About
-                                                    Us</a></li>
-                                            <hr class="text-primary opacity-0">
-                                            <li><a class="text-primary text-decoration-none" href="./staff.html">Meet
-                                                    Our
-                                                    Staffs</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item border-0 mb-4">
-                                <h2 class="accordion-header fs-6 fw-normal" id="flush-headingTwo">
-                                    <a class="accordion-button collapsed p-0 bg-light border-0 text-primary text-decoration-none text-uppercase"
-                                        href="#" role="button" data-bs-toggle="collapse"
-                                        data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                                        aria-controls="flush-collapseTwo">
-                                        News & Events
-                                    </a>
-                                </h2>
-                                <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                                    aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body bg-light pb-0">
-                                        <ul class="border-0 text-uppercase py-2 mb-0" style="list-style-type: none;">
-                                            <li><a class="text-primary text-decoration-none"
-                                                    href="./calender.html">Upcoming
-                                                    Events</a></li>
-                                            <hr class="text-primary opacity-0">
-                                            <li><a class="text-primary text-decoration-none"
-                                                    href="./news.html">newsroom</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item border-0 mb-4">
-                                <h2 class="accordion-header fs-6 fw-normal" id="flush-headingThree">
-                                    <a class="accordion-button collapsed p-0 bg-light border-0 text-primary text-decoration-none text-uppercase"
-                                        href="#" role="button" data-bs-toggle="collapse"
-                                        data-bs-target="#flush-collapseThree" aria-expanded="false"
-                                        aria-controls="flush-collapseThree">
-                                        Enrollment
-                                    </a>
-                                </h2>
-                                <div id="flush-collapseThree" class="accordion-collapse collapse"
-                                    aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body bg-light pb-0">
-                                        <ul class="border-0 text-uppercase py-2 mb-0" style="list-style-type: none;">
-                                            <li><a class="text-primary text-decoration-none"
-                                                    href="./apply.html">Apply</a>
-                                                <hr class="text-primary opacity-0">
-                                            <li><a class="text-primary text-decoration-none" href="./faqs.html">FAQs</a>
-                                            </li>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <li class="nav-item text-decoration-none m-0 text-uppercase" style="list-style-type: none;">
-                            <a class="nav-link text-primary p-0" href="./contact.html">Contact Us</a>
-                        </li>
-                        <form class="d-sm-none d-flex mb-0 mt-3" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -135,32 +65,37 @@
         </div>
         <div class="third-home-div">
             <div class="upward-margin">
-                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-                    <div class="col m-0">
-                        <div class="card justify-content-center shadow" onclick="showEventBackdrop(event)">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    <div class="col m-0 mb-4">
+                        <div class="card justify-content-center shadow" data-myOffcanvas="upcoming-events"
+                            onclick="showEventBackdrop(event)">
+                            <div class="d-flex flex-column align-items-center justify-content-center"
+                                data-myoffcanvas="upcoming-events">
+                                <i class="bi bi-calendar-plus text-center text-primary"
+                                    data-myOffcanvas="upcoming-events"></i>
+                                <p class="text-center p-0 m-0 text-primary" data-myOffcanvas="upcoming-events">Upcoming
+                                    Events</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col m-0 mb-4">
+                        <div class="card justify-content-center shadow" data-myOffcanvas="staff-list"
+                        onclick="showEventBackdrop(event)">
+                            <div class="d-flex flex-column justify-content-center" data-myOffcanvas="staff-list">
+                                <i class="bi bi-people text-center text-primary" data-myOffcanvas="staff-list"></i>
+                                <p class="text-center p-0 m-0 text-primary" data-myOffcanvas="staff-list">Staffs</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col m-0 mb-4">
+                        <div class="card justify-content-center shadow">
                             <div class="d-flex flex-column align-items-center justify-content-center">
                                 <i class="bi bi-calendar-plus text-center text-primary"></i>
                                 <p class="text-center p-0 m-0 text-primary">Upcoming Events</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col m-0">
-                        <div class="card justify-content-center shadow">
-                            <div class="d-flex flex-column justify-content-center">
-                                <i class="bi bi-people text-center text-primary"></i>
-                                <p class="text-center p-0 m-0 text-primary">Staffs</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col m-0">
-                        <div class="card justify-content-center shadow">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <i class="bi bi-calendar-plus text-center text-primary"></i>
-                                <p class="text-center p-0 m-0 text-primary">Upcoming Events</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col m-0">
+                    <div class="col m-0 mb-4">
                         <div class="card justify-content-center shadow">
                             <div class="d-flex flex-column align-items-center justify-content-center">
                                 <i class="bi bi-calendar-plus text-center text-primary"></i>
@@ -173,7 +108,8 @@
         </div>
     </div>
 
-    <div class="upcoming-events active">
+    <!--Upcoming event list offcanvas-->
+    <div class="upcoming-events myoffcanvases" id="upcoming-events">
         <div class="bg-primary dark-div">
             <div class="first-home-div d-flex align-items-baseline">
                 <div>
@@ -182,13 +118,47 @@
                         <i class="bi bi-list text-primary"></i>
                     </a>
                 </div>
-                <div class="d-flex">
+                <div class="d-flex nav-link" onclick="hideAllEventBackdrop()">
                     <h1 class="mb-0 mt-0 text-primary fw-normal me-1">SPS</h1>
                     <img src="../images/logo-removebg-preview.png" alt="">
                 </div>
             </div>
             <div class="second-home-div">
                 <h1 class="text-light text-center p-0 m-0">Upcoming Events</h1>
+            </div>
+        </div>
+        <div class="pt-5">
+            <ul id="upcomingevent">
+                <!-- Adding list elements -->
+            </ul>
+            <div class="no-event d-none">
+                <p class="text-center">No upcoming events</p>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-center pb-5">
+            <button class="btn add-btn my-5" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Add
+                Event</button>
+        </div>
+    </div>
+
+
+    <!--Staff list offcanvas-->
+    <div class="upcoming-events myoffcanvases" id="staff-list">
+        <div class="bg-primary dark-div">
+            <div class="first-home-div d-flex align-items-baseline">
+                <div>
+                    <a href="#sidebar" class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
+                        role="button" aria-controls="sidebar">
+                        <i class="bi bi-list text-primary"></i>
+                    </a>
+                </div>
+                <div class="d-flex nav-link" onclick="hideAllEventBackdrop()">
+                    <h1 class="mb-0 mt-0 text-primary fw-normal me-1">SPS</h1>
+                    <img src="../images/logo-removebg-preview.png" alt="">
+                </div>
+            </div>
+            <div class="second-home-div">
+                <h1 class="text-light text-center p-0 m-0">Staff List</h1>
             </div>
         </div>
         <div class="pt-5">
@@ -236,7 +206,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="editEventButton" data-bs-dismiss="modal">Save Changes</button>
+                        <button type="submit" class="btn btn-primary" id="editEventButton" data-bs-dismiss="modal">Save
+                            Changes</button>
                     </div>
                 </form>
             </div>
