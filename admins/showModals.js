@@ -30,6 +30,46 @@ const showEventBackdrop = (event) => {
     offcanvasTarget.classList.add("active")
 }
 
+const showAddEventFunction = () => {
+    let addForm = document.getElementById("addEventForm");
+    const eventInputs = document.querySelectorAll(".eventInput");
+    const allInputs = document.querySelectorAll(".allInputs");
+
+    allInputs.forEach(input => {
+        input.classList.add("d-none")
+    })
+    eventInputs.forEach(input => {
+        input.classList.remove("d-none")
+    });
+
+    if (addForm.classList.contains("addStaff")) {
+        addForm.classList.remove("addStaff")
+        addForm.classList.add("addEvent")
+    } else {
+        addForm.classList.add("addEvent")
+    }
+}
+
+const showAddStaffFunction = () => {
+    let addForm = document.getElementById("addEventForm");
+    const staffInputs = document.querySelectorAll(".staffInput");
+    const allInputs = document.querySelectorAll(".allInputs");
+
+    allInputs.forEach(input => {
+        input.classList.add("d-none")
+    })
+    staffInputs.forEach(input => {
+        input.classList.remove("d-none")
+    });
+
+    if (addForm.classList.contains("addEvent")) {
+        addForm.classList.remove("addEvent")
+        addForm.classList.add("addStaff")
+    } else {
+        addForm.classList.add("addStaff")
+    }
+}
+
 const showEditEventModal = (event) => {
     const button = event.target
     const eventInputs = document.querySelectorAll(".eventInput");
@@ -120,4 +160,33 @@ const showDeleteEventModal = (event) => {
 
     document.querySelector(".deleteEventButton").id = button.id
     //console.log(document.querySelector(".deleteEventButton").id)
+
+    let deleteQuestion = document.querySelector(".deleteQuestion");
+    deleteQuestion.textContent = "Are you sure you want to delete this event?"
+
+    let deleteEventButton = document.querySelector(".deleteEventButton");
+    if (deleteEventButton.classList.contains("setStaff")) {
+        deleteEventButton.classList.remove("setStaff")
+        deleteEventButton.classList.add("setEvent")
+    } else {
+        deleteEventButton.classList.add("setEvent")
+    }
+}
+
+const showDeleteStaffModal = (event) => {
+    const button = event.target
+
+    document.querySelector(".deleteEventButton").id = button.id
+    //console.log(document.querySelector(".deleteEventButton").id)
+
+    let deleteQuestion = document.querySelector(".deleteQuestion");
+    deleteQuestion.textContent = "Are you sure you want to delete this staff info?"
+
+    let deleteEventButton = document.querySelector(".deleteEventButton");
+    if (deleteEventButton.classList.contains("setEvent")) {
+        deleteEventButton.classList.remove("setEvent")
+        deleteEventButton.classList.add("setStaff")
+    } else {
+        deleteEventButton.classList.add("setStaff")
+    }
 }
