@@ -143,7 +143,7 @@
 
 
     <!--Staff list offcanvas-->
-    <div class="upcoming-events myoffcanvases" id="staff-list">
+    <div class="upcoming-events myoffcanvases active" id="staff-list">
         <div class="bg-primary dark-div">
             <div class="first-home-div d-flex align-items-baseline">
                 <div>
@@ -197,7 +197,7 @@
                 <form class="editEventForm" id="">
                     <div class="modal-body">
                         <div class="mb-5">
-                            <label for="editImgInput">Change picture</label>
+                            <label for="editImgInput" class="">Change picture</label>
                             <input type="file" accept="image/*" id="editImgInput" class="" />
                             <img src="" alt="" class="eventImg" id="editImg">
                         </div>
@@ -317,12 +317,15 @@
 
         const upcomingEventsList = document.getElementById("upcomingevent")
         const adminList = document.getElementById("adminlist")
+        const staffList = document.getElementById("stafflist")
         //getting all stored data
         const upcomingEvents = collection(storage, 'Upcoming-events');
         const adminLists = collection(storage, "Admin-list")
+        const staffLists = collection(storage, "Staff-list")
         //getting query, for ordering
         const qUp = query(upcomingEvents, orderBy('fulldate', 'asc'))
         const qAdmin = query(adminLists, orderBy('order', 'asc'))
+        const qStaff = query(staffLists, orderBy('Name', 'asc'))
 
 
         //checking if there is a user signed in
@@ -392,6 +395,38 @@
                         </div>
                     `;
                 adminList.appendChild(li);
+            });
+        })
+
+
+        //updating the staff list
+        onSnapshot(qStaff, (staff) => {
+            let staffs = []
+            staff.docs.forEach((doc) => {
+                staffs.push({ ...doc.data(), id: doc.id })
+            })
+            //console.log(staffs)
+            staffList.innerHTML = ""
+
+
+            staffs.forEach(staff => {
+                //console.log(staff)
+                var li = document.createElement('li');
+                li.innerHTML = `
+                        <div class="mb-5">
+                            <h6>${staff.Name}</h6>
+                            <ul>
+                                <li><a href="${"tel:+234" + staff.Phone.slice(1)}" class="text-primary text-decoration-none">${staff.Phone}</a></li>
+                                <li><a href="mailto:${staff.mail}" class="text-primary text-break text-decoration-none">${staff.mail}</a></li>
+                            </ul>
+                            <div class="d-flex justify-content-between pe-5 mt-2">
+                                <button type="button" class="btn edit-btn" data-bs-toggle="modal" id="${staff.id}" data-bs-target="#staticBackdrop" onclick="showEditAdminModal(event)">Edit</button>
+                                <button type="button" class="btn edit-btn" data-bs-toggle="modal" id="${staff.id}" data-bs-target="#staticBackdrop3" onclick="showDeleteEventModal(event)">Delete</button>
+                            </div>
+                            <img width = "20px" class="d-none" src="${staff.photo}" alt="">
+                        </div>
+                    `;
+                staffList.appendChild(li);
             });
         })
 
@@ -593,6 +628,42 @@
                             showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
                             setTimeout(hideAlertFunction, 5000)
                         })
+
+                    let editimgInput = document.getElementById("editImgInput")
+                    //console.log(editimgInput.value)
+
+                    if (editimgInput.value != "") {
+
+                        let newReader = editImageURl()
+                        const newReaderResult = newReader[1]
+                        //console.log(newReaderResult)
+                        const fileName = newReader[0]
+
+                        //getting events images
+                        const storageRef = ref(Imstorage, `images/${fileName}`);
+
+                        try {
+                            uploadString(storageRef, newReaderResult, 'data_url').then(
+                                (snapshot) => {
+                                    document.getElementById("editImgInput").value = ""
+                                    //console.log('Uploaded a data_url string!');
+                                    getDownloadURL(snapshot.ref).then((link) => {
+                                        //console.log(link)
+                                        updateDoc(upcomingEvent, {
+                                            imageSrc: link
+                                        })
+                                    })
+                                },
+                                (error) => {
+                                    showAlertsFunction(error, "danger", "bi-exclamation-triangle")
+                                    setTimeout(hideAlertFunction, 5000)
+                                }
+                            );
+                        } catch (error) {
+                            showAlertsFunction(error, "danger", "bi-exclamation-triangle")
+                            setTimeout(hideAlertFunction, 5000)
+                        }
+                    }
                 }
             } else if (editEventForm.classList.contains("adminz")) {
                 let name = document.querySelector("#nameInput").value
