@@ -191,7 +191,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-4" id="staticBackdropLabel">Edit Event</h1>
+                    <h1 class="modal-title fs-4" id="staticBackdropLabel"></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form class="editEventForm" id="">
@@ -598,53 +598,58 @@
                 let name = document.querySelector("#nameInput").value
                 let position = document.getElementById("positionInput").value
 
-                let newReader = editImageURl()
-                const newReaderResult = newReader[1]
-                //console.log(newReaderResult)
-                const fileName = newReader[0]
-
-                //getting events images
-                const storageRef = ref(Imstorage, `images/${fileName}`);
-
                 const adminList = doc(storage, "Admin-list", docId);
 
                 if (name == '' || position == '') {
                     console.log("alert")
                 } else {
-                    try {
-                        uploadString(storageRef, newReaderResult, 'data_url').then(
-                            (snapshot) => {
-                                //console.log('Uploaded a data_url string!');
-                                getDownloadURL(snapshot.ref).then((link) => {
-                                    //console.log(link)
+                    updateDoc(adminList, {
+                        name: name,
+                        position: position,
+                        //picture: link
+                    })
+                        .then(() => {
+                            showAlertsFunction("Admin updated", "success", "bi-check2-square")
+                            setTimeout(hideAlertFunction, 5000)
+                        })
+                        .catch(error => {
+                            showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
+                            setTimeout(hideAlertFunction, 5000)
+                        })
 
-                                    updateDoc(adminList, {
-                                        name: name,
-                                        position: position,
-                                        picture: link
+                    let editimgInput = document.getElementById("editImgInput")
+                    //console.log(editimgInput.value)
+
+                    if (editimgInput.value != "") {
+
+                        let newReader = editImageURl()
+                        const newReaderResult = newReader[1]
+                        //console.log(newReaderResult)
+                        const fileName = newReader[0]
+
+                        //getting events images
+                        const storageRef = ref(Imstorage, `images/${fileName}`);
+
+                        try {
+                            uploadString(storageRef, newReaderResult, 'data_url').then(
+                                (snapshot) => {
+                                    document.getElementById("editImgInput").value = ""
+                                    //console.log('Uploaded a data_url string!');
+                                    getDownloadURL(snapshot.ref).then((link) => {
+                                        updateDoc(adminList, {
+                                            picture: link
+                                        })
                                     })
-                                        .then(() => {
-                                            document.getElementById("editImgInput").value = ""
-
-                                            showAlertsFunction("Admin updated", "success", "bi-check2-square")
-                                            setTimeout(hideAlertFunction, 5000)
-                                        })
-                                        .catch(error => {
-                                            showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
-                                            setTimeout(hideAlertFunction, 5000)
-                                        })
-
-                                })
-                                //console.log(link)
-                            },
-                            (error) => {
-                                showAlertsFunction(error, "danger", "bi-exclamation-triangle")
-                                setTimeout(hideAlertFunction, 5000)
-                            }
-                        );
-                    } catch (error) {
-                        showAlertsFunction(error, "danger", "bi-exclamation-triangle")
-                        setTimeout(hideAlertFunction, 5000)
+                                },
+                                (error) => {
+                                    showAlertsFunction(error, "danger", "bi-exclamation-triangle")
+                                    setTimeout(hideAlertFunction, 5000)
+                                }
+                            );
+                        } catch (error) {
+                            showAlertsFunction(error, "danger", "bi-exclamation-triangle")
+                            setTimeout(hideAlertFunction, 5000)
+                        }
                     }
                 }
             }

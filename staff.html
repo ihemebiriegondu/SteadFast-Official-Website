@@ -215,23 +215,9 @@
             </div>
         </section>
         <section class="administration reveal">
-            <div
-                class="row row-cols-md-3 row-cols-sm-2 row-cols-1 align-items-sm-start justify-content-sm-start align-items-center justify-content-center reveal">
-                <div class="col admin-col d-flex flex-column justify-content-center align-items-center reveal">
-                    <img class="mb-5 reveal" src="./images/Staffs/proprietress.jpg" alt="">
-                    <h6 class="text-center text-black semi-cursive mb-3 h4 fw-bold reveal">Ihemebiri Olusola</h6>
-                    <p class="text-center text-black fs-5 reveal">Head Mistress</p>
-                </div>
-                <div class="col admin-col d-flex flex-column justify-content-center align-items-center reveal">
-                    <img class="mb-5 reveal" src="./images/Students/pexels-pixabay-220453.jpg" alt="">
-                    <h6 class="text-center text-black semi-cursive mb-3 h4 fw-bold reveal">Ihemebiri Peter</h6>
-                    <p class="text-center text-black fs-5 reveal">Principal</p>
-                </div>
-                <div class="col admin-col d-flex flex-column justify-content-center align-items-center reveal">
-                    <img class="mb-5 reveal" src="./images/Students/pexels-pixabay-220453.jpg" alt="">
-                    <h6 class="text-center text-black semi-cursive mb-3 h4 fw-bold reveal">Okoh Ezinne</h6>
-                    <p class="text-center text-black fs-5 reveal">Assistant Principal</p>
-                </div>
+            <div class="row row-cols-md-3 row-cols-sm-2 row-cols-1 align-items-sm-start justify-content-sm-start align-items-center justify-content-center reveal"
+                id="administration">
+                <!--Admin list would be added here from database-->
             </div>
         </section>
         <section class="bg-primary text-white pt-4 text-center teachers reveal">
@@ -419,6 +405,58 @@
         </div>
     </footer>
 
+
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        // Add Firebase products that you want to use
+        import { getFirestore, collection, query, orderBy, onSnapshot } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD6z-NHLx-jHtua5qxsRYXB6tQ52RJ1QvU",
+            authDomain: "steadfastprivateschools-admin.firebaseapp.com",
+            projectId: "steadfastprivateschools-admin",
+            storageBucket: "steadfastprivateschools-admin.appspot.com",
+            messagingSenderId: "283296008725",
+            appId: "1:283296008725:web:6d1fca5d8cf93930ba1c1c",
+            measurementId: "G-0FX402CLGG"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const storage = getFirestore(app)
+
+        const administration = document.getElementById("administration");
+        //getting admin list
+        const adminLists = collection(storage, "Admin-list")
+        //getting query, for ordering
+        const qAdmin = query(adminLists, orderBy('order', 'asc'))
+
+        //updating the events
+        onSnapshot(qAdmin, (admin) => {
+            let admins = []
+            admin.docs.forEach((doc) => {
+                admins.push({ ...doc.data(), id: doc.id })
+            })
+            //console.log(admins)
+            administration.innerHTML = ""
+
+            admins.forEach(admin => {
+                //console.log(admin)
+                var div = document.createElement('div');
+                div.innerHTML = `
+                <div class="col admin-col d-flex flex-column justify-content-center align-items-center reveal">
+                    <img class="mb-5 reveal" src="${admin.picture}" alt="">
+                    <h6 class="text-center text-black semi-cursive mb-3 h4 fw-bold reveal">${admin.name}</h6>
+                    <p class="text-center text-black fs-5 reveal">${admin.position}</p>
+                </div>
+                    `;
+                administration.appendChild(div);
+            });
+        })
+
+
+    </script>
 
     <script src="./JS/index.js"></script>
 </body>
