@@ -203,19 +203,27 @@
                         </div>
                         <div class="mb-4 d-none eventInput allInputs">
                             <h5>Title: </h5>
-                            <input type="text" value="Graduation" id="titleInput">
+                            <input type="text" value="" id="titleInput">
                         </div>
                         <div class="mb-4 d-none eventInput allInputs">
                             <h5>Date: </h5>
-                            <input type="date" value="2013-01-08" id="dateInput">
+                            <input type="date" value="" id="dateInput">
                         </div>
-                        <div class="mb-4 d-none adminInput allInputs">
+                        <div class="mb-4 d-none adminInput staffInput allInputs">
                             <h5>Name: </h5>
-                            <input type="text" value="Graduation" id="nameInput">
+                            <input type="text" value="" id="nameInput">
                         </div>
                         <div class="mb-4 d-none adminInput allInputs">
                             <h5>Postion: </h5>
-                            <input type="text" value="Graduation" id="positionInput">
+                            <input type="text" value="" id="positionInput">
+                        </div>
+                        <div class="mb-4 d-none staffInput allInputs">
+                            <h5>Phone number: </h5>
+                            <input type="tel" value="" id="phoneInput">
+                        </div>
+                        <div class="mb-4 d-none staffInput allInputs">
+                            <h5>Email Address: </h5>
+                            <input type="email" value="" id="emailInput">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -415,13 +423,15 @@
                 li.innerHTML = `
                         <div class="mb-5">
                             <h6>${staff.Name}</h6>
+                            <p class="d-none">${staff.Phone}</p>
+                            <p class="d-none">${staff.mail}</p>
                             <ul>
                                 <li><a href="${"tel:+234" + staff.Phone.slice(1)}" class="text-primary text-decoration-none">${staff.Phone}</a></li>
                                 <li><a href="mailto:${staff.mail}" class="text-primary text-break text-decoration-none">${staff.mail}</a></li>
                             </ul>
                             <div class="d-flex justify-content-between pe-5 mt-2">
-                                <button type="button" class="btn edit-btn" data-bs-toggle="modal" id="${staff.id}" data-bs-target="#staticBackdrop" onclick="showEditAdminModal(event)">Edit</button>
-                                <button type="button" class="btn edit-btn" data-bs-toggle="modal" id="${staff.id}" data-bs-target="#staticBackdrop3" onclick="showDeleteEventModal(event)">Delete</button>
+                                <button type="button" class="btn edit-btn" data-bs-toggle="modal" id="${staff.id}" data-bs-target="#staticBackdrop" onclick="showEditStaffModal(event)">Edit</button>
+                                <button type="button" class="btn edit-btn" data-bs-toggle="modal" id="${staff.id}" data-bs-target="#staticBackdrop3" onclick="showDeleteStaffModal(event)">Delete</button>
                             </div>
                             <img width = "20px" class="d-none" src="${staff.photo}" alt="">
                         </div>
@@ -483,7 +493,7 @@
             return [imgInputFileName, imageURL]
         }
 
-        //getting image file from edit admin/staff
+        //getting image file from edit admin/staff/event
         let editimgInput = document.getElementById("editImgInput")
         const editImageURl = () => {
             let sampleImg = document.getElementById("editImg")
@@ -612,7 +622,8 @@
                 const upcomingEvent = doc(storage, "Upcoming-events", docId);
 
                 if (input == '' || title == '') {
-                    console.log("alert")
+                    showAlertsFunction("Incomplete input field", "danger", "bi-exclamation-triangle")
+                    setTimeout(hideAlertFunction, 5000)
                 } else {
                     updateDoc(upcomingEvent, {
                         Date: day,
@@ -672,7 +683,8 @@
                 const adminList = doc(storage, "Admin-list", docId);
 
                 if (name == '' || position == '') {
-                    console.log("alert")
+                    showAlertsFunction("Incomplete input field", "danger", "bi-exclamation-triangle")
+                    setTimeout(hideAlertFunction, 5000)
                 } else {
                     updateDoc(adminList, {
                         name: name,
@@ -709,6 +721,66 @@
                                     getDownloadURL(snapshot.ref).then((link) => {
                                         updateDoc(adminList, {
                                             picture: link
+                                        })
+                                    })
+                                },
+                                (error) => {
+                                    showAlertsFunction(error, "danger", "bi-exclamation-triangle")
+                                    setTimeout(hideAlertFunction, 5000)
+                                }
+                            );
+                        } catch (error) {
+                            showAlertsFunction(error, "danger", "bi-exclamation-triangle")
+                            setTimeout(hideAlertFunction, 5000)
+                        }
+                    }
+                }
+            } else if (editEventForm.classList.contains("staffz")) {
+                let name = document.querySelector("#nameInput").value
+                let phone = document.getElementById("phoneInput").value
+                let mail = document.getElementById("emailInput").value
+
+                const staffList = doc(storage, "Staff-list", docId);
+
+                if (name == '') {
+                    showAlertsFunction("Name field is not filled", "danger", "bi-exclamation-triangle")
+                    setTimeout(hideAlertFunction, 5000)
+                } else {
+                    updateDoc(staffList, {
+                        Name: name,
+                        Phone: phone,
+                        mail: mail
+                    })
+                        .then(() => {
+                            showAlertsFunction("Staff info updated", "success", "bi-check2-square")
+                            setTimeout(hideAlertFunction, 5000)
+                        })
+                        .catch(error => {
+                            showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
+                            setTimeout(hideAlertFunction, 5000)
+                        })
+
+                    let editimgInput = document.getElementById("editImgInput")
+                    //console.log(editimgInput.value)
+
+                    if (editimgInput.value != "") {
+
+                        let newReader = editImageURl()
+                        const newReaderResult = newReader[1]
+                        //console.log(newReaderResult)
+                        const fileName = newReader[0]
+
+                        //getting events images
+                        const storageRef = ref(Imstorage, `images/${fileName}`);
+
+                        try {
+                            uploadString(storageRef, newReaderResult, 'data_url').then(
+                                (snapshot) => {
+                                    document.getElementById("editImgInput").value = ""
+                                    //console.log('Uploaded a data_url string!');
+                                    getDownloadURL(snapshot.ref).then((link) => {
+                                        updateDoc(staffList, {
+                                            photo: link
                                         })
                                     })
                                 },

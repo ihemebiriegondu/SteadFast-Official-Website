@@ -49,8 +49,9 @@ const showEditEventModal = (event) => {
     document.getElementById("staticBackdropLabel").textContent = "Edit Event"
 
     document.querySelector(".editEventForm").id = button.id
-    if (editEventForm.classList.contains("adminz")) {
+    if (editEventForm.classList.contains("adminz") || editEventForm.classList.contains("staffz")) {
         editEventForm.classList.remove("adminz")
+        editEventForm.classList.remove("staffz")
         editEventForm.classList.add("eventz")
     } else {
         editEventForm.classList.add("eventz")
@@ -76,11 +77,41 @@ const showEditAdminModal = (event) => {
     document.getElementById("staticBackdropLabel").textContent = "Edit Admin Info"
 
     document.querySelector(".editEventForm").id = button.id
-    if (editEventForm.classList.contains("eventz")) {
+    if (editEventForm.classList.contains("eventz") || editEventForm.classList.contains("staffz")) {
         editEventForm.classList.remove("eventz")
+        editEventForm.classList.remove("staffz")
         editEventForm.classList.add("adminz")
     } else {
         editEventForm.classList.add("adminz")
+    }
+}
+
+const showEditStaffModal = (event) => {
+    const button = event.target
+    const staffInputs = document.querySelectorAll(".staffInput");
+    const allInputs = document.querySelectorAll(".allInputs");
+    const editEventForm = document.querySelector(".editEventForm")
+
+    allInputs.forEach(input => {
+        input.classList.add("d-none")
+    })
+    staffInputs.forEach(input => {
+        input.classList.remove("d-none")
+    });
+
+    document.querySelector(".eventImg").src = button.parentElement.parentElement.children[5].src;
+    document.querySelector("#nameInput").value = button.parentElement.parentElement.children[0].textContent;
+    document.querySelector("#phoneInput").value = button.parentElement.parentElement.children[1].textContent;
+    document.querySelector("#emailInput").value = button.parentElement.parentElement.children[2].textContent;
+    document.getElementById("staticBackdropLabel").textContent = "Edit Staff Info"
+
+    document.querySelector(".editEventForm").id = button.id
+    if (editEventForm.classList.contains("eventz") || editEventForm.classList.contains("adminz")) {
+        editEventForm.classList.remove("eventz")
+        editEventForm.classList.remove("adminz")
+        editEventForm.classList.add("staffz")
+    } else {
+        editEventForm.classList.add("staffz")
     }
 }
 
