@@ -42,8 +42,13 @@ const showAddEventFunction = () => {
         input.classList.remove("d-none")
     });
 
-    if (addForm.classList.contains("addStaff")) {
+    if (document.querySelector(".img-div").classList.contains("d-none")) {
+        document.querySelector(".img-div").classList.remove("d-none")
+    }
+
+    if (addForm.classList.contains("addStaff") || addForm.classList.contains("addStudent")) {
         addForm.classList.remove("addStaff")
+        addForm.classList.remove("addStudent")
         addForm.classList.add("addEvent")
     } else {
         addForm.classList.add("addEvent")
@@ -62,11 +67,39 @@ const showAddStaffFunction = () => {
         input.classList.remove("d-none")
     });
 
-    if (addForm.classList.contains("addEvent")) {
+    if (document.querySelector(".img-div").classList.contains("d-none")) {
+        document.querySelector(".img-div").classList.remove("d-none")
+    }
+
+    if (addForm.classList.contains("addEvent") || addForm.classList.contains("addStudent")) {
         addForm.classList.remove("addEvent")
+        addForm.classList.remove("addStudent")
         addForm.classList.add("addStaff")
     } else {
         addForm.classList.add("addStaff")
+    }
+}
+
+const showAddStudentFunction = () => {
+    let addForm = document.getElementById("addEventForm");
+    const studentInputs = document.querySelectorAll(".studentInput");
+    const allInputs = document.querySelectorAll(".allInputs");
+
+    allInputs.forEach(input => {
+        input.classList.add("d-none")
+    })
+    studentInputs.forEach(input => {
+        input.classList.remove("d-none")
+    });
+
+    document.querySelector(".img-div").classList.add("d-none")
+
+    if (addForm.classList.contains("addEvent") || addForm.classList.contains("addStaff")) {
+        addForm.classList.remove("addEvent")
+        addForm.classList.remove("addStaff")
+        addForm.classList.add("addStudent")
+    } else {
+        addForm.classList.add("addStudent")
     }
 }
 

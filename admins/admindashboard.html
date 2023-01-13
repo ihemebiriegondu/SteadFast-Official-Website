@@ -55,6 +55,11 @@
                                 <p class="nav-link text-primary p-0" data-myOffcanvas="staff-list"
                                     onclick="showEventBackdrop(event)" data-bs-dismiss="offcanvas">Staff List</p>
                             </li>
+                            <li class="nav-item text-decoration-none m-0 text-uppercase" style="list-style-type: none;">
+                                <p class="nav-link text-primary p-0" data-myOffcanvas="students-list"
+                                    onclick="showEventBackdrop(event)" data-bs-dismiss="offcanvas">Students e-learning
+                                    list</p>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -88,10 +93,14 @@
                         </div>
                     </div>
                     <div class="col m-0 mb-4">
-                        <div class="card justify-content-center shadow">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <i class="bi bi-calendar-plus text-center text-primary"></i>
-                                <p class="text-center p-0 m-0 text-primary">Upcoming Events</p>
+                        <div class="card justify-content-center shadow" data-myOffcanvas="students-list"
+                            onclick="showEventBackdrop(event)">
+                            <div class="d-flex flex-column align-items-center justify-content-center"
+                                data-myOffcanvas="students-list">
+                                <i class="bi bi-calendar-plus text-center text-primary"
+                                    data-myOffcanvas="students-list"></i>
+                                <p class="text-center p-0 m-0 text-primary" data-myOffcanvas="students-list">Students
+                                    e-learning list</p>
                             </div>
                         </div>
                     </div>
@@ -144,7 +153,7 @@
 
 
     <!--Staff list offcanvas-->
-    <div class="upcoming-events myoffcanvases active" id="staff-list">
+    <div class="upcoming-events myoffcanvases" id="staff-list">
         <div class="bg-primary dark-div">
             <div class="first-home-div d-flex align-items-baseline">
                 <div>
@@ -180,6 +189,38 @@
                 Staff</button>
         </div>
     </div>
+
+
+    <!--E-learning list offcanvas-->
+    <div class="upcoming-events myoffcanvases" id="students-list">
+        <div class="bg-primary dark-div">
+            <div class="first-home-div d-flex align-items-baseline">
+                <div>
+                    <a href="#sidebar" class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
+                        role="button" aria-controls="sidebar">
+                        <i class="bi bi-list text-primary"></i>
+                    </a>
+                </div>
+                <div class="d-flex nav-link" onclick="hideAllEventBackdrop()">
+                    <h1 class="mb-0 mt-0 text-primary fw-normal me-1">SPS</h1>
+                    <img src="../images/logo-removebg-preview.png" alt="">
+                </div>
+            </div>
+            <div class="second-home-div">
+                <h1 class="text-light text-center p-0 m-0">E-learning</h1>
+            </div>
+        </div>
+        <div class="pt-5">
+            <ul id="upcomingevent">
+                <!-- Adding list elements -->
+            </ul>
+        </div>
+        <div class="d-flex align-items-center justify-content-center pb-5">
+            <button class="btn add-btn my-5" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
+                onclick="showAddStudentFunction()">Add student info</button>
+        </div>
+    </div>
+
 
     <!--Error messages-->
     <div class="error">
@@ -249,7 +290,7 @@
                 </div>
                 <form id="addEventForm">
                     <div class="modal-body">
-                        <div class="mb-5">
+                        <div class="mb-5 img-div">
                             <img src="" alt="" class="eventImg d-none" id="displayImage">
                             <label for="newImg-input" class="text-center">
                                 Choose image
@@ -264,7 +305,7 @@
                             <h5>Date: </h5>
                             <input type="date" value="" id="newDateInput">
                         </div>
-                        <div class="mb-4 d-none adminInput staffInput allInputs">
+                        <div class="mb-4 d-none adminInput staffInput studentinput allInputs">
                             <h5>Name: </h5>
                             <input type="text" value="" id="newNameInput">
                         </div>
@@ -272,9 +313,13 @@
                             <h5>Phone number: </h5>
                             <input type="tel" value="" id="newPhoneInput">
                         </div>
-                        <div class="mb-4 d-none staffInput allInputs">
+                        <div class="mb-4 d-none staffInput studentinput allInputs">
                             <h5>Email Address: </h5>
                             <input type="email" value="" id="newEmailInput">
+                        </div>
+                        <div class="mb-4 d-none studentinput allInputs">
+                            <h5>StudentID: </h5>
+                            <input type="text" value="" id="newPasswordInput">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -315,11 +360,12 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
         // Add Firebase products that you want to use
-        import { getAuth } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
+        import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
         import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, query, orderBy, updateDoc } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
         import { getStorage, ref, uploadString, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
 
 
+        //firebase config for the admin page
         const firebaseConfig = {
             apiKey: "AIzaSyD6z-NHLx-jHtua5qxsRYXB6tQ52RJ1QvU",
             authDomain: "steadfastprivateschools-admin.firebaseapp.com",
@@ -330,16 +376,32 @@
             measurementId: "G-0FX402CLGG"
         };
 
+        //firebase config for elearning page
+        const secondaryAppConfig = {
+            apiKey: "AIzaSyA-PFbpldT06LHV7UuaXub3S0M5Hun9LZY",
+            authDomain: "steadfastprivateschool.firebaseapp.com",
+            projectId: "steadfastprivateschool",
+            storageBucket: "steadfastprivateschool.appspot.com",
+            messagingSenderId: "571984421647",
+            appId: "1:571984421647:web:86828fd7a22aa31ef6547a",
+            measurementId: "G-8WTZSTF3D8"
+        };
+
+
+
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
+        const secondaryApp = initializeApp(secondaryAppConfig, "secondary");
         const analytics = getAnalytics(app);
         const auth = getAuth(app);
+        const secondaryAuth = getAuth(secondaryApp)
         const storage = getFirestore(app)
         const Imstorage = getStorage(app);
 
         const upcomingEventsList = document.getElementById("upcomingevent")
         const adminList = document.getElementById("adminlist")
         const staffList = document.getElementById("stafflist")
+
         //getting all stored data
         const upcomingEvents = collection(storage, 'Upcoming-events');
         const adminLists = collection(storage, "Admin-list")
@@ -653,6 +715,27 @@
                         setTimeout(hideAlertFunction, 5000)
                     }
                 }
+            } else if (addForm.classList.contains("addStudent")) {
+                let name = document.querySelector("#newNameInput").value
+                let password = document.getElementById("newPasswordInput").value
+                let mail = document.getElementById("newEmailInput").value
+
+                console.log("stident")
+
+                createUserWithEmailAndPassword(secondaryAuth, mail, password)
+                    .then((userCredential) => {
+                        // Signed in 
+                        const user = userCredential.user;
+                        user.displayName = name
+                        // ...
+                        console.log("signed in")
+                        console.log(user)
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        // ..
+                    });
             }
         }
 
