@@ -223,3 +223,21 @@ const showDeleteStaffModal = (event) => {
         deleteEventButton.classList.add("setStaff")
     }
 }
+
+const showDeleteStudentModal = (event) => {
+    const button = event.target
+
+    document.querySelector(".deleteEventButton").id = button.id
+    //console.log(document.querySelector(".deleteEventButton").id)
+
+    let deleteQuestion = document.querySelector(".deleteQuestion");
+    deleteQuestion.textContent = "Are you sure you want to delete this staff info?"
+
+    let deleteEventButton = document.querySelector(".deleteEventButton");
+    if (deleteEventButton.classList.contains("setEvent")) {
+        deleteEventButton.classList.remove("setEvent")
+        deleteEventButton.classList.add("setStaff")
+    } else {
+        deleteEventButton.classList.add("setStaff")
+    }
+}

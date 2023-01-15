@@ -211,7 +211,7 @@
             </div>
         </div>
         <div class="pt-5">
-            <ul id="upcomingevent">
+            <ul id="studentlist">
                 <!-- Adding list elements -->
             </ul>
         </div>
@@ -401,15 +401,18 @@
         const upcomingEventsList = document.getElementById("upcomingevent")
         const adminList = document.getElementById("adminlist")
         const staffList = document.getElementById("stafflist")
+        const studentList = document.getElementById("studentlist")
 
         //getting all stored data
         const upcomingEvents = collection(storage, 'Upcoming-events');
-        const adminLists = collection(storage, "Admin-list")
-        const staffLists = collection(storage, "Staff-list")
+        const adminLists = collection(storage, "Admin-list");
+        const staffLists = collection(storage, "Staff-list");
+        const studentLists = collection(storage, "student-list");
         //getting query, for ordering
         const qUp = query(upcomingEvents, orderBy('fulldate', 'asc'))
         const qAdmin = query(adminLists, orderBy('order', 'asc'))
         const qStaff = query(staffLists, orderBy('Name', 'asc'))
+        const qStudent = query(studentLists, orderBy('Username', 'asc'))
 
 
         //checking if there is a user signed in
@@ -516,6 +519,35 @@
             });
         })
 
+
+        //updating the students list
+        onSnapshot(qStudent, (student) => {
+            let students = []
+            student.docs.forEach((doc) => {
+                students.push({ ...doc.data(), id: doc.id })
+            })
+            //console.log(students)
+            studentList.innerHTML = ""
+
+
+            students.forEach(student => {
+                //console.log(student)
+                var li = document.createElement('li');
+                li.innerHTML = `
+                        <div class="mb-5">
+                            <h6>${student.Username}</h6>
+                            <p>${student.email}</p>
+                            <p class="d-none">${student.UserID}</p>
+                            <div class="d-flex justify-content-between pe-5 mt-2">
+                                <button type="button" class="btn edit-btn" data-bs-toggle="modal" id="${student.id}" data-bs-target="#staticBackdrop" onclick="showEditStudentModal(event)">Edit</button>
+                                <button type="button" class="btn edit-btn ms-3" data-bs-toggle="modal" id="${student.id}" data-bs-target="#staticBackdrop3" onclick="showDeleteStudentModal(event)">Delete</button>
+                            </div>
+                            <img width = "20px" class="d-none" src="${student.imageURL}" alt="">
+                        </div>
+                    `;
+                studentList.appendChild(li);
+            });
+        })
 
 
         //alerts
@@ -727,9 +759,25 @@
                         // Signed in 
                         const user = userCredential.user;
                         user.displayName = name
-                        // ...
-                        console.log("signed in")
-                        console.log(user)
+                        user.imageURL = "https://firebasestorage.googleapis.com/v0/b/steadfastprivateschools-admin.appspot.com/o/images%2Fuser.png?alt=media&token=f2be9e1d-7260-49c2-aed2-8032acea012c"
+
+                        //console.log("signed in")
+                        //console.log(user)
+
+                        addDoc(studentLists, {
+                            Username: name,
+                            email: mail,
+                            imageURL: "https://firebasestorage.googleapis.com/v0/b/steadfastprivateschools-admin.appspot.com/o/images%2Fuser.png?alt=media&token=f2be9e1d-7260-49c2-aed2-8032acea012c",
+                            UserID: user.uid
+                        })
+                            .then(() => {
+                                document.getElementById("addEventForm").reset()
+                                document.getElementById("displayImage").setAttribute("src", "")
+                                document.getElementById("displayImage").classList.add("d-none")
+
+                                showAlertsFunction("Upload Successful", "success", "bi-check2-square")
+                                setTimeout(hideAlertFunction, 5000)
+                            })
                     })
                     .catch((error) => {
                         const errorCode = error.code;
