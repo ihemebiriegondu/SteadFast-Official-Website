@@ -360,7 +360,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
         // Add Firebase products that you want to use
-        import { getAuth, createUserWithEmailAndPassword, deleteUser, signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
+        import { getAuth, createUserWithEmailAndPassword, deleteUser, signInWithEmailAndPassword, signOut, updateProfile } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
         import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, query, orderBy, updateDoc } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
         import { getStorage, ref, uploadString, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
 
@@ -757,9 +757,13 @@
                     .then((userCredential) => {
                         // Signed in 
                         const user = userCredential.user;
-                        user.displayName = name
-                        user.imageURL = "https://firebasestorage.googleapis.com/v0/b/steadfastprivateschools-admin.appspot.com/o/images%2Fuser.png?alt=media&token=f2be9e1d-7260-49c2-aed2-8032acea012c"
+                        //console.log(user)
 
+                        updateProfile(user, {
+                            displayName: name,
+                            photoURL: "https://firebasestorage.googleapis.com/v0/b/steadfastprivateschools-admin.appspot.com/o/images%2Fuser.png?alt=media&token=f2be9e1d-7260-49c2-aed2-8032acea012c"
+
+                        })
                         //console.log("signed in")
                         //console.log(user)
 
