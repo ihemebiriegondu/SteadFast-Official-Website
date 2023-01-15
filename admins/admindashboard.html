@@ -360,7 +360,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
         // Add Firebase products that you want to use
-        import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
+        import { getAuth, createUserWithEmailAndPassword, deleteUser, signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
         import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, query, orderBy, updateDoc } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
         import { getStorage, ref, uploadString, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
 
@@ -408,6 +408,7 @@
         const adminLists = collection(storage, "Admin-list");
         const staffLists = collection(storage, "Staff-list");
         const studentLists = collection(storage, "student-list");
+
         //getting query, for ordering
         const qUp = query(upcomingEvents, orderBy('fulldate', 'asc'))
         const qAdmin = query(adminLists, orderBy('order', 'asc'))
@@ -752,8 +753,6 @@
                 let password = document.getElementById("newPasswordInput").value
                 let mail = document.getElementById("newEmailInput").value
 
-                console.log("stident")
-
                 createUserWithEmailAndPassword(secondaryAuth, mail, password)
                     .then((userCredential) => {
                         // Signed in 
@@ -768,7 +767,8 @@
                             Username: name,
                             email: mail,
                             imageURL: "https://firebasestorage.googleapis.com/v0/b/steadfastprivateschools-admin.appspot.com/o/images%2Fuser.png?alt=media&token=f2be9e1d-7260-49c2-aed2-8032acea012c",
-                            UserID: user.uid
+                            UserID: user.uid,
+                            password: password
                         })
                             .then(() => {
                                 document.getElementById("addEventForm").reset()
@@ -815,6 +815,53 @@
                         showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
                         setTimeout(hideAlertFunction, 5000)
                     })
+            } else if (deleteEventButton.classList.contains("setStudent")) {
+                const studentList = doc(storage, "student-list", docId);
+
+                onSnapshot(qStudent, (student) => {
+                    let students = []
+
+                    student.docs.forEach((doc) => {
+                        students.push({ ...doc.data(), id: doc.id })
+                    })
+
+                    //console.log(students)
+
+                    students.forEach(student => {
+                        if (student.id == docId) {
+                            //console.log(student)
+                            signInWithEmailAndPassword(secondaryAuth, student.email, student.password)
+                                .then(() => {
+                                    const user = secondaryAuth.currentUser
+
+                                    deleteUser(user)
+                                        .then(() => {
+                                            showAlertsFunction("Deleted Successful", "success", "bi-check2-square")
+                                            setTimeout(hideAlertFunction, 5000)
+                                        }).catch((error) => {
+                                            showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
+                                            setTimeout(hideAlertFunction, 5000)
+                                        })
+                                    signOut(secondaryAuth).then(() => {
+                                        showAlertsFunction("Signed out", "success", "bi-check2-square")
+                                        setTimeout(hideAlertFunction, 5000)
+                                    }).catch(error => {
+                                        showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
+                                        setTimeout(hideAlertFunction, 5000)
+                                    })
+                                })
+                            deleteDoc(studentList)
+                                .then(() => {
+                                    showAlertsFunction("Deleted Successful", "success", "bi-check2-square")
+                                    setTimeout(hideAlertFunction, 5000)
+                                })
+                                .catch(error => {
+                                    showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
+                                    setTimeout(hideAlertFunction, 5000)
+                                })
+                        }
+                    })
+                })
             }
         }
 

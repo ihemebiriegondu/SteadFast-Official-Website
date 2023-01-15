@@ -198,8 +198,9 @@ const showDeleteEventModal = (event) => {
     deleteQuestion.textContent = "Are you sure you want to delete this event?"
 
     let deleteEventButton = document.querySelector(".deleteEventButton");
-    if (deleteEventButton.classList.contains("setStaff")) {
+    if (deleteEventButton.classList.contains("setStaff") || deleteEventButton.classList.contains("setStudent")) {
         deleteEventButton.classList.remove("setStaff")
+        deleteEventButton.classList.remove("setStudent")
         deleteEventButton.classList.add("setEvent")
     } else {
         deleteEventButton.classList.add("setEvent")
@@ -216,8 +217,9 @@ const showDeleteStaffModal = (event) => {
     deleteQuestion.textContent = "Are you sure you want to delete this staff info?"
 
     let deleteEventButton = document.querySelector(".deleteEventButton");
-    if (deleteEventButton.classList.contains("setEvent")) {
+    if (deleteEventButton.classList.contains("setEvent") || deleteEventButton.classList.contains("setStudent")) {
         deleteEventButton.classList.remove("setEvent")
+        deleteEventButton.classList.remove("setStudent")
         deleteEventButton.classList.add("setStaff")
     } else {
         deleteEventButton.classList.add("setStaff")
@@ -231,13 +233,14 @@ const showDeleteStudentModal = (event) => {
     //console.log(document.querySelector(".deleteEventButton").id)
 
     let deleteQuestion = document.querySelector(".deleteQuestion");
-    deleteQuestion.textContent = "Are you sure you want to delete this staff info?"
+    deleteQuestion.textContent = "Are you sure you want to delete this student info?"
 
     let deleteEventButton = document.querySelector(".deleteEventButton");
-    if (deleteEventButton.classList.contains("setEvent")) {
+    if (deleteEventButton.classList.contains("setEvent") || deleteEventButton.classList.contains("setStaff")) {
         deleteEventButton.classList.remove("setEvent")
-        deleteEventButton.classList.add("setStaff")
+        deleteEventButton.classList.remove("setStaff")
+        deleteEventButton.classList.add("setStudent")
     } else {
-        deleteEventButton.classList.add("setStaff")
+        deleteEventButton.classList.add("setStudent")
     }
 }
