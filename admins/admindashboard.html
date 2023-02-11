@@ -361,7 +361,7 @@
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
         // Add Firebase products that you want to use
         import { getAuth, createUserWithEmailAndPassword, deleteUser, signInWithEmailAndPassword, signOut, updateProfile } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
-        import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, query, orderBy, updateDoc } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
+        import { getFirestore, collection, onSnapshot, setDoc, deleteDoc, doc, query, orderBy, updateDoc } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
         import { getStorage, ref, uploadString, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
 
 
@@ -536,14 +536,17 @@
                 var li = document.createElement('li');
                 li.innerHTML = `
                         <div class="mb-5">
-                            <h6>${student.Username}</h6>
-                            <p>${student.email}</p>
+                            <div class='d-flex align-items-center'>
+                                <img width = "40px" height = '40px' class="me-3" src="${student.imageURL}" alt="">
+                            <div>
+                                <h6>${student.Username}</h6>
+                                <p class='mb-0'>${student.email}</p>
+                            </div>
+                            </div>
                             <p class="d-none">${student.UserID}</p>
                             <div class="d-flex justify-content-between pe-5 mt-2">
-                                <button type="button" class="btn edit-btn" data-bs-toggle="modal" id="${student.id}" data-bs-target="#staticBackdrop" onclick="showEditStudentModal(event)">Edit</button>
                                 <button type="button" class="btn edit-btn ms-3" data-bs-toggle="modal" id="${student.id}" data-bs-target="#staticBackdrop3" onclick="showDeleteStudentModal(event)">Delete</button>
                             </div>
-                            <img width = "20px" class="d-none" src="${student.imageURL}" alt="">
                         </div>
                     `;
                 studentList.appendChild(li);
@@ -767,12 +770,12 @@
                         //console.log("signed in")
                         //console.log(user)
 
-                        addDoc(studentLists, {
+                        setDoc(doc(storage, "student-list", user.uid), {
                             Username: name,
                             email: mail,
                             imageURL: "https://firebasestorage.googleapis.com/v0/b/steadfastprivateschools-admin.appspot.com/o/images%2Fuser.png?alt=media&token=f2be9e1d-7260-49c2-aed2-8032acea012c",
                             UserID: user.uid,
-                            password: password
+                            password: password,
                         })
                             .then(() => {
                                 document.getElementById("addEventForm").reset()
@@ -787,6 +790,8 @@
                         const errorCode = error.code;
                         const errorMessage = error.message;
                         // ..
+                        showAlertsFunction(errorMessage, "danger", "bi-check2-square")
+                        setTimeout(hideAlertFunction, 5000)
                     });
             }
         }
