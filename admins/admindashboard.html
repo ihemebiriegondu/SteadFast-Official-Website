@@ -764,8 +764,7 @@
 
                         updateProfile(user, {
                             displayName: name,
-                            photoURL: "https://firebasestorage.googleapis.com/v0/b/steadfastprivateschools-admin.appspot.com/o/images%2Fuser.png?alt=media&token=f2be9e1d-7260-49c2-aed2-8032acea012c"
-
+                            photoURL: "https://firebasestorage.googleapis.com/v0/b/steadfastprivateschools-admin.appspot.com/o/images%2Fuser.png?alt=media&token=f2be9e1d-7260-49c2-aed2-8032acea012c",
                         })
                         //console.log("signed in")
                         //console.log(user)
@@ -776,6 +775,8 @@
                             imageURL: "https://firebasestorage.googleapis.com/v0/b/steadfastprivateschools-admin.appspot.com/o/images%2Fuser.png?alt=media&token=f2be9e1d-7260-49c2-aed2-8032acea012c",
                             UserID: user.uid,
                             password: password,
+                            scores: [],
+                            timeTaken: []
                         })
                             .then(() => {
                                 document.getElementById("addEventForm").reset()
