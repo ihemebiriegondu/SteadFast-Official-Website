@@ -127,6 +127,19 @@ header li:hover {
     width: 15rem;
 }
 
+.social-icons {
+    transition: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
+.social-icons:hover{
+    color: $secondary !important;
+    transition: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
 .accordion-button::after {
     margin-left: 10px !important;
 }
@@ -164,7 +177,7 @@ header li:hover {
 
 .administration {
     margin-top: -11rem;
-    padding-bottom: 5rem;
+    padding-bottom: 1rem;
 }
 
 .administration .admin-col {
@@ -302,6 +315,14 @@ footer ul::marker {
 }
 
 @media (max-width: 768px) {
+    .administration {
+        margin-top: -9rem;
+    }
+
+    .administration .admin-col {
+        height: 400px !important;
+    }
+
     .administration .admin-col:nth-of-type(1) {
         flex-grow: 1;
     }
@@ -311,7 +332,8 @@ footer ul::marker {
     }
     
     .administration .admin-col:nth-of-type(3) {
-        flex-grow: 8;      
+        flex-grow: 2;
+        flex-basis: 100% !important;      
         margin-top: -2rem !important;
     }
 

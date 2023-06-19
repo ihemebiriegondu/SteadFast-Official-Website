@@ -20,19 +20,15 @@
 
 <body>
     <button class="btn bg-white rounded rounded-circle py-2 px-2 shadow back-to-top-button" onclick="topFunction()"><i
-        class="bi bi-arrow-up-short h1 text-primary"></i></button>
+            class="bi bi-arrow-up-short h1 text-primary"></i></button>
     <header class="">
         <div>
-            <div class="bg-primary py-2 d-flex justify-content-between px-4 align-items-center">
+            <div class="bg-primary py-2 d-flex justify-content-end px-4 align-items-center">
                 <div class="d-flex justify-content-end align-items-center text-white">
-                    <a href="" class="text-white me-4"><i class="bi bi-facebook fs-5"></i></a>
-                    <a href="" class="text-white me-4"><i class="bi bi-twitter fs-5"></i></a>
-                    <a href="" class="text-white me-5"><i class="bi bi-instagram fs-5"></i></a>
+                    <a href="" class="text-white me-4 social-icons"><i class="bi bi-facebook fs-5"></i></a>
+                    <a href="" class="text-white me-4 social-icons"><i class="bi bi-twitter fs-5"></i></a>
+                    <a href="" class="text-white me-md-2 me-0 social-icons"><i class="bi bi-instagram fs-5"></i></a>
                 </div>
-                <form class="d-sm-flex d-none mb-0" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
-                </form>
             </div>
             <nav class="navbar navbar-expand-lg bg-light navbar-light">
                 <div class="container-fluid new-container-nav">
@@ -183,10 +179,6 @@
                         <li class="nav-item text-decoration-none m-0 text-uppercase" style="list-style-type: none;">
                             <a class="nav-link fw-bold text-primary p-0" href="./contact.html">Contact Us</a>
                         </li>
-                        <form class="d-sm-none d-flex mb-0 mt-3" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -211,34 +203,39 @@
                     <div class="">
                         <div class="d-flex align-items-start">
                             <i class="bi bi-geo-alt-fill me-2 fs-5 text-primary"></i>
-                            <div class="m-0 p-0">
+                            <a href="https://www.google.com/maps/dir//Steadfast+Private+Schools+17+Oyemala+street+off+Oko-oba+road+Ogijo/@6.7101351,3.5086446,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x103be920484f3255:0xafe6e0f650dedb89!2m2!1d3.5086446!2d6.7101351?entry=ttu"
+                                class="m-0 p-0 d-block text-decoration-none" target="_blank">
                                 <p class="m-0 p-0">17, Oyemala Street,</p>
                                 <p class="m-0 p-0">Ogijo, Ogun State.</p>
                                 <p class="m-0 p-0">Nigeria.</p>
-                            </div>
+                            </a>
                         </div>
                         <div class="d-flex align-items-start mt-4">
                             <i class="bi bi-geo-alt-fill me-2 fs-5 text-primary"></i>
-                            <div class="m-0 p-0">
+                            <a href="https://www.google.com/maps/dir//Steadfast+Private+Schools+B+Close,+Goshen+estate+Ogijo/@6.7242468,3.5325843,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x103be9b616dbe38b:0xfca2e26e9d0bae4e!2m2!1d3.5325843!2d6.7242468?entry=ttu"
+                                class="m-0 p-0 d-block text-decoration-none" target="_blank">
                                 <p class="m-0 p-0">B Close, Goshen estate</p>
                                 <p class="m-0 p-0">Ogijo, Ogun State.</p>
                                 <p class="m-0 p-0">Nigeria.</p>
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <div class="reveal">
                         <div class="d-flex align-items-start mb-4 mt-sm-0 mt-4 reveal">
                             <i class="bi bi-telephone-fill me-2 fs-5 text-primary"></i>
                             <div class="">
-                                <p class="m-0 p-0"><a href="tel:+2348083959974" class="text-black text-decoration-none"> 0808 395 9974</a></p>
-                                <p class="m-0 p-0"><a href="tel:+2348051676476" class="text-black text-decoration-none"> 0805 167 6476</a></p>
-                                <p class="m-0 p-0"><a href="tel:+2348188213674" class="text-black text-decoration-none"> 0818 821 3674</a></p>
+                                <p class="m-0 p-0"><a href="tel:+2348083959974" class="text-black text-decoration-none">
+                                        0808 395 9974</a></p>
+                                <p class="m-0 p-0"><a href="tel:+2348051676476" class="text-black text-decoration-none">
+                                        0805 167 6476</a></p>
+                                <p class="m-0 p-0"><a href="tel:+2348188213674" class="text-black text-decoration-none">
+                                        0818 821 3674</a></p>
                             </div>
                         </div>
                         <div class="d-flex reveal">
                             <i class="bi bi-envelope-fill me-2 fs-5 text-primary"></i>
                             <p class="text-break"><a href="mailto:ihemebiriegondu@gmail.com"
-                                class="text-black text-break text-decoration-none">info@steadfastschools.com</a></p>
+                                    class="text-black text-break text-decoration-none">info@steadfastschools.com</a></p>
                         </div>
                     </div>
                     <div class="d-md-block d-none reveal">
@@ -251,33 +248,33 @@
                 <div class="row g-4 row-cols-md-2 row-cols-1 reveal">
                     <form action="form.php" method="post" class="mt-5 col" id="info-form">
                         <h3 class="mb-5 text-capitalize semi-cursive fw-bold reveal">Admission enquires</h3>
-                        <div class="mb-3 reveal">
+                        <div class="mb-3">
                             <label for="firstname" class="form-label">First Name: </label>
                             <input type="text" class="form-control" id="firstname" name="Firstname">
                         </div>
-                        <div class="mb-3 reveal">
+                        <div class="mb-3">
                             <label for="lastname" class="form-label">Last Name: </label>
                             <input type="text" class="form-control" id="lastname" name="lastname">
                         </div>
-                        <div class="mb-3 reveal">
+                        <div class="mb-3">
                             <label for="email" class="form-label">Email: </label>
                             <input type="email" class="form-control" id="email" name="Email">
                         </div>
-                        <div class="mb-3 reveal">
+                        <div class="mb-3">
                             <label for="phone" class="form-label">Phone: </label>
                             <input type="tel" class="form-control" id="phone" name="Phone-number">
                         </div>
-                        <div class="mb-3 reveal">
+                        <div class="mb-3">
                             <label for="message" class="form-label">Questions/ Comments</label>
                             <textarea name="Message" class="form-control" id="message" rows="4"></textarea>
                         </div>
                         <div>
-                            <button class="btn btn-primary text-uppercase py-3 px-5 reveal" type="submit">Send</button>
+                            <button class="btn btn-primary text-uppercase py-3 px-5" type="submit">Send</button>
                         </div>
                     </form>
                     <div class="col reveal">
                         <div class="map-container">
-                            <div class="mapouter reveal">
+                            <div class="mapouter">
                                 <div class="gmap_canvas"><iframe id="gmap_canvas"
                                         src="https://maps.google.com/maps?q=steadfast%20private%20schools%20ogijo&t=&z=13&ie=UTF8&iwloc=&output=embed"
                                         frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a
@@ -312,16 +309,22 @@
             <div class="d-flex flex-column align-items-center">
                 <img class="" src="./images/wine_logo-removebg-preview.png" alt="">
                 <div class="d-flex justify-content-center mt-4">
-                    <a href="" class="text-white me-4"><i class="bi bi-facebook fs-5"></i></a>
-                    <a href="" class="text-white me-4"><i class="bi bi-twitter fs-5"></i></a>
-                    <a href="" class="text-white"><i class="bi bi-instagram fs-5"></i></a>
+                    <a href="" class="text-white me-4 social-icons"><i class="bi bi-facebook fs-5"></i></a>
+                    <a href="" class="text-white me-4 social-icons"><i class="bi bi-twitter fs-5"></i></a>
+                    <a href="" class="text-white social-icons"><i class="bi bi-instagram fs-5"></i></a>
                 </div>
             </div>
             <div class="text-md-start text-center mb-md-0 mb-4">
                 <h6 class="text-uppercase mt-md-0 mt-5">Contacts</h6>
                 <div class="text-light">
-                    <p>17, Oyemala Street, Ogijo<br>Ogun State, Nigeria.</p>
-                    <p>Goshen Estate, Oponua<br>Ogun State, Nigeria.</p>
+                    <a href="https://www.google.com/maps/dir//Steadfast+Private+Schools+17+Oyemala+street+off+Oko-oba+road+Ogijo/@6.7101351,3.5086446,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x103be920484f3255:0xafe6e0f650dedb89!2m2!1d3.5086446!2d6.7101351?entry=ttu"
+                        class="text-light text-decoration-none d-block mb-2" target="_blank">17, Oyemala Street,
+                        Ogijo<br>Ogun
+                        State, Nigeria.</a>
+                    <a href="https://www.google.com/maps/dir//Steadfast+Private+Schools+B+Close,+Goshen+estate+Ogijo/@6.7242468,3.5325843,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x103be9b616dbe38b:0xfca2e26e9d0bae4e!2m2!1d3.5325843!2d6.7242468?entry=ttu"
+                        class="text-light text-decoration-none d-block mb-2" target="_blank">
+                        Goshen Estate, Oponua<br>Ogun State, Nigeria.
+                    </a>
                     <p>Phone: <a href="tel:+2348083959974" class="text-white text-decoration-none">0808 395 9974</a>,
                         <a href="tel:+2348051676476" class="text-white text-decoration-none">0805 167 6476</a>, <a
                             href="tel:+2348188213674" class="text-white text-decoration-none">0818 821 3674</a>
@@ -345,7 +348,8 @@
                         <p class="m-0 mb-2"><a class="text-light text-decoration-none" href="./apply.html">
                                 Enrollment
                             </a></p>
-                        <p class="m-0"><a class="text-light text-decoration-none" href="./contact.html">Contact Us</a></p>
+                        <p class="m-0"><a class="text-light text-decoration-none" href="./contact.html">Contact Us</a>
+                        </p>
                     </div>
                 </div>
             </div>

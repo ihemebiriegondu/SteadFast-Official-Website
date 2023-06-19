@@ -140,6 +140,19 @@ header li:hover {
     width: 15rem;
 }
 
+.social-icons {
+    transition: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
+.social-icons:hover{
+    color: $secondary !important;
+    transition: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
 .accordion-button::after {
     margin-left: 10px !important;
 }
