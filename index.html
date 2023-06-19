@@ -355,7 +355,8 @@
                             to our unwavering commitment to fostering intellectual curiosity, character development, and
                             academic achievement.</p>
 
-                        <p class="d-sm-block d-none ">Founded in 2009, SPS began as a humble institution with a handful of passionate
+                        <p class="d-sm-block d-none ">Founded in 2009, SPS began as a humble institution with a handful
+                            of passionate
                             educators and a vision to provide an exceptional education that goes beyond textbooks. Since
                             then,
                             we have grown into a renowned educational establishment, recognized for our innovative
@@ -370,24 +371,14 @@
                 <aside class="col-md-4 reveal h-100">
                     <div class="bg-primary text-white px-3 py-3 pb-4 shadow-sm reveal">
                         <h3 class="text-uppercase semi-cursive reveal">newsroom</h3>
-                        <hr class="text-light reveal">
-                        <div class="">
-                            <div class="col reveal">
-                                <h6 class="text-uppercase mb-4 reveal text-white">first news appear here</h6>
-                                <div class="d-flex justify-content-start reveal">
-                                    <i class="bi bi-calendar me-2"></i>
-                                    <p class="small fw-bold">July 12, 2022</p>
-                                </div>
+                        <hr class="text-light">
+                        <div>
+                            <div class="no-news my-5 d-none">
+                                <p class="text-center">No latest news</p>
                             </div>
-                            <hr class="text-light reveal">
-                            <div class="col reveal">
-                                <h6 class="text-uppercase mb-4 reveal text-white">first news appear here</h6>
-                                <div class="d-flex justify-content-start reveal">
-                                    <i class="bi bi-calendar me-2"></i>
-                                    <p class="small fw-bold">July 12, 2022</p>
-                                </div>
+                            <div class="" id="miniNewsContainer">
+                                <!--news headlines gotten from firebase will appear here-->
                             </div>
-                            <hr class="text-light reveal">
                             <div class="text-end">
                                 <a href="./news.html" class="btn btn-outline-light px-4 py-2 reveal">More News</a>
                             </div>
@@ -628,6 +619,10 @@
         //getting query, for ordering
         const q = query(upcomingEvents, orderBy('fulldate', 'asc'))
 
+        const newsContainer = document.getElementById("miniNewsContainer");
+        const allNews = collection(storage, 'all-news');
+        const qnews = query(allNews, orderBy('fulldate', 'asc'))
+
         //updating the events
         onSnapshot(q, (upcomingEvent) => {
             let events = []
@@ -642,7 +637,7 @@
             } else {
                 document.querySelector(".no-event").classList.add("d-none")
 
-                events.slice(0,4).forEach(event => {
+                events.slice(0, 4).forEach(event => {
                     //console.log(event)
                     var div = document.createElement('div');
                     div.innerHTML = `
@@ -660,6 +655,39 @@
                         </div>
                     `;
                     upcomingEventsContainer.appendChild(div);
+                });
+            }
+        })
+
+        //updating the events
+        onSnapshot(qnews, (allNews) => {
+            let news = []
+            allNews.docs.forEach((doc) => {
+                news.push({ ...doc.data(), id: doc.id })
+            })
+            //console.log(news)
+            newsContainer.innerHTML = ""
+
+            if (news.length == 0) {
+                document.querySelector(".no-news").classList.remove("d-none")
+            } else {
+                document.querySelector(".no-news").classList.add("d-none")
+
+                news.slice(0, 3).forEach(eachnews => {
+
+                    //console.log(eachnews)
+                    var div = document.createElement('div');
+                    div.innerHTML = `
+                    <div class="col">
+                                <h6 class="text-uppercase mb-4 text-white">${eachnews.Headline}</h6>
+                                <div class="d-flex justify-content-start">
+                                    <i class="bi bi-calendar me-2"></i>
+                                    <p class="small fw-bold">${eachnews.Date} ${eachnews.monthyear}</p>
+                                </div>
+                            </div>
+                            <hr class="text-light">
+                    `;
+                    newsContainer.appendChild(div);
                 });
             }
         })
