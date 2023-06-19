@@ -642,7 +642,7 @@
             } else {
                 document.querySelector(".no-event").classList.add("d-none")
 
-                events.forEach(event => {
+                events.slice(0,4).forEach(event => {
                     //console.log(event)
                     var div = document.createElement('div');
                     div.innerHTML = `

@@ -123,6 +123,17 @@
     font-size: 18px;
 }
 
+.dashboard-body .modal .modal-body textarea {
+    resize: none;
+    width: 100%;
+    border: 2px solid rgb(98, 23, 23) !important;
+    padding: 8px 10px;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 18px;
+    outline: none;
+}
+
 .dashboard-body .error {
     position: fixed !important;
     top: -10px !important;

@@ -105,10 +105,13 @@
                         </div>
                     </div>
                     <div class="col m-0 mb-4">
-                        <div class="card justify-content-center shadow">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <i class="bi bi-calendar-plus text-center text-primary"></i>
-                                <p class="text-center p-0 m-0 text-primary">Upcoming Events</p>
+                        <div class="card justify-content-center shadow" data-myOffcanvas="news-list"
+                            onclick="showEventBackdrop(event)">
+                            <div class="d-flex flex-column align-items-center justify-content-center"
+                                data-myOffcanvas="news-list">
+                                <i class="bi bi-calendar-plus text-center text-primary"
+                                    data-myOffcanvas="news-list"></i>
+                                <p class="text-center p-0 m-0 text-primary" data-myOffcanvas="news-list">News</p>
                             </div>
                         </div>
                     </div>
@@ -221,6 +224,41 @@
         </div>
     </div>
 
+    <!--news list offcanvas-->
+    <div class="upcoming-events myoffcanvases" id="news-list">
+        <div class="bg-primary dark-div">
+            <div class="first-home-div d-flex align-items-baseline">
+                <div>
+                    <a href="#sidebar" class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
+                        role="button" aria-controls="sidebar">
+                        <i class="bi bi-list text-primary"></i>
+                    </a>
+                </div>
+                <div class="d-flex nav-link" onclick="hideAllEventBackdrop()">
+                    <h1 class="mb-0 mt-0 text-primary fw-normal me-1">SPS</h1>
+                    <img src="../images/logo-removebg-preview.png" alt="">
+                </div>
+            </div>
+            <div class="second-home-div">
+                <h1 class="text-light text-center p-0 m-0">News</h1>
+            </div>
+        </div>
+        <div class="pt-5">
+            <ul id="newslist">
+                <!-- Adding list elements -->
+            </ul>
+            <div class="no-news d-none">
+                <p class="text-center">No news</p>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-center pb-5">
+            <button class="btn add-btn my-5" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
+                onclick="showAddNewsFunction()">Add
+                News</button>
+        </div>
+    </div>
+
+
 
     <!--Error messages-->
     <div class="error">
@@ -268,6 +306,14 @@
                             <h5>Email Address: </h5>
                             <input type="email" value="" id="emailInput">
                         </div>
+                        <div class="mb-4 d-none newsInput allInputs">
+                            <h5>Headline: </h5>
+                            <input type="text" value="" id="headlineInput">
+                        </div>
+                        <div class="mb-4 d-none newsInput allInputs">
+                            <h5>Content: </h5>
+                            <textarea name="" cols="30" rows="10" id="contentInput" value=""></textarea>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -285,7 +331,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-4" id="staticBackdropLabel2">Add New Event</h1>
+                    <h1 class="modal-title fs-4" id="staticBackdropLabel2"><!--modal title--></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="addEventForm">
@@ -320,6 +366,14 @@
                         <div class="mb-4 d-none studentinput allInputs">
                             <h5>StudentID: </h5>
                             <input type="text" value="" id="newPasswordInput">
+                        </div>
+                        <div class="mb-4 d-none newsInput allInputs">
+                            <h5>Headline: </h5>
+                            <input type="text" value="" id="newsheadline">
+                        </div>
+                        <div class="mb-4 d-none newsInput allInputs">
+                            <h5>Content: </h5>
+                            <textarea name="" cols="30" rows="10" id="newscontent" value=""></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -402,18 +456,21 @@
         const adminList = document.getElementById("adminlist")
         const staffList = document.getElementById("stafflist")
         const studentList = document.getElementById("studentlist")
+        const newsList = document.getElementById('newslist')
 
         //getting all stored data
         const upcomingEvents = collection(storage, 'Upcoming-events');
         const adminLists = collection(storage, "Admin-list");
         const staffLists = collection(storage, "Staff-list");
         const studentLists = collection(storage, "student-list");
+        const newsLists = collection(storage, "all-news")
 
         //getting query, for ordering
         const qUp = query(upcomingEvents, orderBy('fulldate', 'asc'))
         const qAdmin = query(adminLists, orderBy('order', 'asc'))
         const qStaff = query(staffLists, orderBy('Name', 'asc'))
         const qStudent = query(studentLists, orderBy('Username', 'asc'))
+        const qNews = query(newsLists, orderBy('fulldate', 'asc'))
 
 
         //checking if there is a user signed in
@@ -550,6 +607,41 @@
                         </div>
                     `;
                 studentList.appendChild(li);
+            });
+        })
+
+
+        //updating the news list
+        onSnapshot(qNews, (news) => {
+            let allnews = []
+            news.docs.forEach((doc) => {
+                allnews.push({ ...doc.data(), id: doc.id })
+            })
+            //console.log(allnews)
+            newsList.innerHTML = ""
+
+
+            allnews.forEach(news => {
+                //console.log(news)
+                var li = document.createElement('li');
+                li.style.listStyleType = 'none'
+                li.innerHTML = `
+                        <div class="mb-5">
+                            <div class='d-flex align-items-center'>
+                                <img width = "50px" height = '50px' class="me-3" src="${news.imageSrc}" alt="">
+                                <div>
+                                    <h6>${news.Headline}</h6>
+                                    <p class='mb-0'>Date added: ${news.Date} ${news.monthyear}</p>
+                                    <div class='d-none'>${news.Content}</div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between pe-5 mt-2">
+                                <button type="button" class="btn edit-btn ms-3" data-bs-toggle="modal" id="${news.id}" data-bs-target="#staticBackdrop" onclick="showEditNewsModal(event)">Edit</button>
+                                <button type="button" class="btn edit-btn ms-3" data-bs-toggle="modal" id="${news.id}" data-bs-target="#staticBackdrop3" onclick="showDeleteNewsModal(event)">Delete</button>
+                            </div>
+                        </div>
+                    `;
+                newsList.appendChild(li);
             });
         })
 
@@ -795,6 +887,72 @@
                         showAlertsFunction(errorMessage, "danger", "bi-check2-square")
                         setTimeout(hideAlertFunction, 5000)
                     });
+
+            } else if (addForm.classList.contains("addNews")) {
+                let headline = document.getElementById("newsheadline").value;
+                let content = document.getElementById("newscontent").value;
+                let newsDate = new Date();
+
+                let dateEntered = new Date(newsDate);
+                let date = dateEntered.getDate()
+                //console.log(dateEntered);
+
+                let day = date.toLocaleString('en-us', { minimumIntegerDigits: 2, useGrouping: false })
+                let monyear = dateEntered.toLocaleString('en-us', { month: 'long', year: 'numeric' })
+                //console.log(day)
+                //console.log(monyear)
+
+                let newReader = getImageURl()
+                const newReaderResult = newReader[1]
+                //console.log(newReaderResult)
+                const fileName = newReader[0]
+
+                //getting events images
+                const storageRef = ref(Imstorage, `images/${fileName}`);
+
+                if (headline == '' || content == '') {
+                    document.getElementById("addEventForm").reset()
+                    document.getElementById("displayImage").setAttribute("src", "")
+                    document.getElementById("displayImage").classList.add("d-none")
+                    console.log("alert")
+                } else {
+                    try {
+                        uploadString(storageRef, newReaderResult, 'data_url').then(
+                            (snapshot) => {
+                                //console.log('Uploaded a data_url string!');
+                                getDownloadURL(snapshot.ref).then((link) => {
+                                    //console.log(link)
+
+                                    addDoc(newsLists, {
+                                        Date: day,
+                                        fulldate: newsDate,
+                                        imageSrc: link,
+                                        monthyear: monyear,
+                                        Headline: headline,
+                                        Content: content
+                                    })
+                                        .then(() => {
+                                            document.getElementById("addEventForm").reset()
+                                            document.getElementById("displayImage").setAttribute("src", "")
+                                            document.getElementById("displayImage").classList.add("d-none")
+
+                                            showAlertsFunction("Upload Successful", "success", "bi-check2-square")
+                                            setTimeout(hideAlertFunction, 5000)
+                                        })
+
+                                })
+                                //console.log(link)
+                            },
+                            (error) => {
+                                showAlertsFunction(error, "danger", "bi-exclamation-triangle")
+                                setTimeout(hideAlertFunction, 5000)
+                            }
+                        );
+                    } catch (error) {
+                        showAlertsFunction(error, "danger", "bi-exclamation-triangle")
+                        setTimeout(hideAlertFunction, 5000)
+                    }
+                }
             }
         }
 
@@ -873,6 +1031,17 @@
                         }
                     })
                 })
+            } else if (deleteEventButton.classList.contains("setNews")) {
+                const news = doc(storage, "all-news", docId);
+                deleteDoc(news)
+                    .then(() => {
+                        showAlertsFunction("Deleted Successful", "success", "bi-check2-square")
+                        setTimeout(hideAlertFunction, 5000)
+                    })
+                    .catch(error => {
+                        showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
+                        setTimeout(hideAlertFunction, 5000)
+                    })
             }
         }
 
@@ -1057,6 +1226,124 @@
                                     getDownloadURL(snapshot.ref).then((link) => {
                                         updateDoc(staffList, {
                                             photo: link
+                                        })
+                                    })
+                                },
+                                (error) => {
+                                    showAlertsFunction(error, "danger", "bi-exclamation-triangle")
+                                    setTimeout(hideAlertFunction, 5000)
+                                }
+                            );
+                        } catch (error) {
+                            showAlertsFunction(error, "danger", "bi-exclamation-triangle")
+                            setTimeout(hideAlertFunction, 5000)
+                        }
+                    }
+                }
+            } else if (editEventForm.classList.contains("newz")) {
+                let headline = document.getElementById("headlineInput").value;
+                let content = document.getElementById("contentInput").value;
+
+                const newsLists = doc(storage, "all-news", docId);
+
+                if (headline == '' || content == '') {
+                    showAlertsFunction("Incomplete input field", "danger", "bi-exclamation-triangle")
+                    setTimeout(hideAlertFunction, 5000)
+                } else {
+                    updateDoc(newsLists, {
+                        Headline: headline,
+                        Content: content
+                    })
+                        .then(() => {
+                            showAlertsFunction("Event updated", "success", "bi-check2-square")
+                            setTimeout(hideAlertFunction, 5000)
+                        })
+                        .catch(error => {
+                            showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
+                            setTimeout(hideAlertFunction, 5000)
+                        })
+
+                    let editimgInput = document.getElementById("editImgInput")
+                    //console.log(editimgInput.value)
+
+                    if (editimgInput.value != "") {
+
+                        let newReader = editImageURl()
+                        const newReaderResult = newReader[1]
+                        //console.log(newReaderResult)
+                        const fileName = newReader[0]
+
+                        //getting events images
+                        const storageRef = ref(Imstorage, `images/${fileName}`);
+
+                        try {
+                            uploadString(storageRef, newReaderResult, 'data_url').then(
+                                (snapshot) => {
+                                    document.getElementById("editImgInput").value = ""
+                                    //console.log('Uploaded a data_url string!');
+                                    getDownloadURL(snapshot.ref).then((link) => {
+                                        //console.log(link)
+                                        updateDoc(newsLists, {
+                                            imageSrc: link
+                                        })
+                                    })
+                                },
+                                (error) => {
+                                    showAlertsFunction(error, "danger", "bi-exclamation-triangle")
+                                    setTimeout(hideAlertFunction, 5000)
+                                }
+                            );
+                        } catch (error) {
+                            showAlertsFunction(error, "danger", "bi-exclamation-triangle")
+                            setTimeout(hideAlertFunction, 5000)
+                        }
+                    }
+                }
+            } else if (editEventForm.classList.contains("adminz")) {
+                let name = document.querySelector("#nameInput").value
+                let position = document.getElementById("positionInput").value
+
+                const adminList = doc(storage, "Admin-list", docId);
+
+                if (name == '' || position == '') {
+                    showAlertsFunction("Incomplete input field", "danger", "bi-exclamation-triangle")
+                    setTimeout(hideAlertFunction, 5000)
+                } else {
+                    updateDoc(adminList, {
+                        name: name,
+                        position: position,
+                        //picture: link
+                    })
+                        .then(() => {
+                            showAlertsFunction("Admin updated", "success", "bi-check2-square")
+                            setTimeout(hideAlertFunction, 5000)
+                        })
+                        .catch(error => {
+                            showAlertsFunction("Error", "danger", "bi-exclamation-triangle")
+                            setTimeout(hideAlertFunction, 5000)
+                        })
+
+                    let editimgInput = document.getElementById("editImgInput")
+                    //console.log(editimgInput.value)
+
+                    if (editimgInput.value != "") {
+
+                        let newReader = editImageURl()
+                        const newReaderResult = newReader[1]
+                        //console.log(newReaderResult)
+                        const fileName = newReader[0]
+
+                        //getting events images
+                        const storageRef = ref(Imstorage, `images/${fileName}`);
+
+                        try {
+                            uploadString(storageRef, newReaderResult, 'data_url').then(
+                                (snapshot) => {
+                                    document.getElementById("editImgInput").value = ""
+                                    //console.log('Uploaded a data_url string!');
+                                    getDownloadURL(snapshot.ref).then((link) => {
+                                        updateDoc(adminList, {
+                                            picture: link
                                         })
                                     })
                                 },
