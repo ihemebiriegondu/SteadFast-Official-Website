@@ -267,7 +267,7 @@ footer ul::marker {
 
     .about-us-story,
     .vision {
-        height: 40rem;
+        height: 43rem;
     }
 
     .about-us-story-row,
@@ -277,13 +277,13 @@ footer ul::marker {
 
     .about-us-story-img,
     .vision-img {
-        height: 50%;
+        height: 45%;
         width: 100%;
     }
 
     .about-us-story-row article,
     .vision-row article {
-        height: 50%;
+        height: 55%;
         width: 100%;
     }
 }
@@ -297,6 +297,28 @@ footer ul::marker {
 @media (max-width: 576px) {
     .first-carousel {
         height: 28.5rem;
+    }
+
+    .about-us-story,
+    .vision {
+        height: 46rem;
+    }
+
+    .about-us-story-row,
+    .vision-row {
+        height: 100%;
+    }
+
+    .about-us-story-img,
+    .vision-img {
+        height: 40%;
+        width: 100%;
+    }
+
+    .about-us-story-row article,
+    .vision-row article {
+        height: 60%;
+        width: 100%;
     }
 }
 

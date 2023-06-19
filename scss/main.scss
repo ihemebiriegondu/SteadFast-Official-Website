@@ -133,6 +133,19 @@ header li:hover {
     width: 15rem;
 }
 
+.social-icons {
+    transition: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
+.social-icons:hover{
+    color: $secondary !important;
+    transition: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
 .accordion-button::after {
     margin-left: 10px !important;
 }
@@ -206,7 +219,7 @@ header li:hover {
     background: url(../images/miami.jpg);
     background-repeat: no-repeat;
     background-position: cover;
-
+    position: relative;
 }
 
 .school-cards {
@@ -217,13 +230,18 @@ header li:hover {
 }
 
 .school-cards .card-body {
-    transition: all 0.5s ease-in-out;
+    transition: all 0.4s ease-in-out;
     border: 3px solid none;
     width: 95%;
 }
 
 .school-cards .card-title {
-    transition: all 0.5s ease-in-out;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    top: 50%;
+    transition: all 0.4s ease-in-out;
     text-align: center;
 }
 
@@ -240,12 +258,13 @@ header li:hover {
 }
 
 .school-cards:hover .card-body {
-    transition: all 0.5s ease-in-out;
+    transition: all 0.4s ease-in-out;
     border: 3px solid white;
 }
 
 .school-cards:hover .card-title {
-    transition: all 0.5s ease-in-out;
+    top: 20%;
+    transition: all 0.4s ease-in-out;
 }
 
 .school-cards:hover .card-text-div {
@@ -371,6 +390,11 @@ footer ul::marker {
 }
 
 @media (max-width: 560px) {
+    header {
+        height: 52rem;
+        background-color: $primary;
+    }
+
     .navbar-brand img {
         width: 60px;
         height: 60px;
@@ -408,13 +432,6 @@ footer ul::marker {
     }
 
 }
-
-@media (min-height: 765px) {}
-
-@media (min-height: 1000px) {}
-
-@media (min-height: 1032px) {}
-
 
 
 
