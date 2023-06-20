@@ -60,6 +60,11 @@
                                     onclick="showEventBackdrop(event)" data-bs-dismiss="offcanvas">Students e-learning
                                     list</p>
                             </li>
+                            <li class="nav-item text-decoration-none m-0 text-uppercase" style="list-style-type: none;">
+                                <p class="nav-link text-primary p-0" data-myOffcanvas="news-list"
+                                    onclick="showEventBackdrop(event)" data-bs-dismiss="offcanvas">News
+                                    list</p>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -620,12 +625,16 @@
             //console.log(allnews)
             newsList.innerHTML = ""
 
+            if (allnews.length == 0) {
+                document.querySelector(".no-news").classList.remove("d-none")
+            } else {
+                document.querySelector(".no-news").classList.add("d-none")
 
-            allnews.forEach(news => {
-                //console.log(news)
-                var li = document.createElement('li');
-                li.style.listStyleType = 'none'
-                li.innerHTML = `
+                allnews.forEach(news => {
+                    //console.log(news)
+                    var li = document.createElement('li');
+                    li.style.listStyleType = 'none'
+                    li.innerHTML = `
                         <div class="mb-5">
                             <div class='d-flex align-items-center'>
                                 <img width = "50px" height = '50px' class="me-3" src="${news.imageSrc}" alt="">
@@ -641,8 +650,9 @@
                             </div>
                         </div>
                     `;
-                newsList.appendChild(li);
-            });
+                    newsList.appendChild(li);
+                });
+            }
         })
 
 
