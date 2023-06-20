@@ -41,7 +41,7 @@
                         <button type="button" class="btn-close mt-3" data-bs-dismiss="offcanvas"
                             aria-label="Close"></button>
                     </div>
-                    <div class="offcanvas-body ps-5">
+                    <div class="offcanvas-body ps-5 d-flex flex-column justify-content-between align-items-start">
                         <ul class="navbar-nav text-uppercase mb-2 mb-lg-0 w-100 justify-content-around">
                             <li class="nav-item">
                                 <p class="nav-link active text-primary p-0" aria-current="page"
@@ -66,6 +66,10 @@
                                     list</p>
                             </li>
                         </ul>
+                        <div>
+                            <p class="text-primary" role="button" id="logOutButton"><i
+                                    class="bi bi-box-arrow-in-left me-2"></i>Log out</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -419,7 +423,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
         // Add Firebase products that you want to use
-        import { getAuth, createUserWithEmailAndPassword, deleteUser, signInWithEmailAndPassword, signOut, updateProfile } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
+        import { getAuth, createUserWithEmailAndPassword, deleteUser, signInWithEmailAndPassword, signOut, updateProfile} from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
         import { getFirestore, collection, onSnapshot, setDoc, deleteDoc, doc, query, orderBy, updateDoc, addDoc } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
         import { getStorage, ref, uploadString, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
 
@@ -1381,6 +1385,11 @@
 
 
 
+        const logOutFunction = () => {
+            signOut(auth);
+        }
+
+        document.getElementById('logOutButton').addEventListener('click', logOutFunction)
 
     </script>
     <script src="./showModals.js"></script>
