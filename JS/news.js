@@ -15,3 +15,13 @@ const showArticlesContent = (event) => {
     document.querySelector(".mainNewsTitle").textContent = article.textContent;
     document.querySelector(".mainNewsContent").innerHTML = article.parentElement.parentElement.children[2].children[1].innerHTML;
 }
+
+const goToNewsFunction = (event) => {
+    let headlineClicked = event.target;
+    //console.log(headlineClicked)
+    let headlineClickedID = headlineClicked.dataset.headlineid
+    //console.log(headlineClickedID)
+    let mainHeadline = document.getElementById(headlineClickedID)
+    //console.log()
+    mainHeadline.parentElement.children[3].children[0].click()
+}
