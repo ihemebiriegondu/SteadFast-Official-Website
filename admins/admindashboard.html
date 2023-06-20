@@ -1384,12 +1384,15 @@
         document.querySelector(".editEventForm").addEventListener('submit', editEvent)
 
 
-
         const logOutFunction = () => {
+            //console.log(auth.currentUser)
             signOut(auth);
+            window.open("https://steadfast-private-school.netlify.app/admins/admindashlogin.html", "_self")
         }
 
         document.getElementById('logOutButton').addEventListener('click', logOutFunction)
+        //prevent user from going back
+        setTimeout(() => { window.history.forward() }, 0);
 
     </script>
     <script src="./showModals.js"></script>

@@ -51,6 +51,23 @@ body {
     width: 100%;
 }
 
+.password-div {
+    background: rgb(248, 207, 207);
+    border: 2px solid rgb(98, 23, 23);
+    border-radius: 10px;
+}
+
+#adminloginform div input#password {
+    border: none;
+}
+
+.password-icon {
+    color: rgb(98, 23, 23);
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+}
+
 @media (max-width: 1024px) {
     #adminloginform {
         width: 70%;
